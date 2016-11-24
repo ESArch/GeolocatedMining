@@ -30,12 +30,13 @@ class StdOutListener(StreamListener):
             tweet = json.loads(data)
 
             # Storing
-            collection.insert(tweet)
+            if(tweet['coordinates']!=None):
+                collection.insert(tweet)
+
             return True
 
         except BaseException as e:
             print('failed ondata,',str(e))
-            time.sleep(5)
             pass
 
         exit()

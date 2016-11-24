@@ -7,15 +7,11 @@ client = MongoClient('localhost', 27017)
 db = client['twitter_db']
 collection = db['valencia_collection']
 
-f = open('englishTweets.txt', 'w', encoding='utf8')
-
-tweets_iterator = collection.find({'lang': 'en'})
+tweets_iterator = collection.find()
 
 for tweet in tweets_iterator:
-    #print(tweet['text'],'\n')
-    mystr = '. '.join(tweet['text'].splitlines())
-    f.write(mystr+'\n')
-    #print(mystr)
+    print(tweet['text'],'\n')
+
 
 print(tweets_iterator.count())
 
