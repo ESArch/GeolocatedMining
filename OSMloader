@@ -1,0 +1,121 @@
+import geopandas as gpd
+from shapely.geometry import MultiPolygon
+from shapely.geometry import mapping, shape
+import matplotlib.pyplot as plt
+import geopandas_osm.osm
+import pymongo
+import json
+
+#streets_df = gpd.read_file('/home/dieaigar/geodata/valencia/valencia_spain_roads.geojson')
+#admin_df = gpd.read_file('/home/dieaigar/geodata/valencia/valencia_spain_admin.geojson')
+#print(admin_df.loc[:,['name','geometry']])
+
+
+#fig, ax = plt.subplots()
+
+#countries50 = gpd.read_file('/home/dieaigar/geodata/countries50/ne_50m_admin_0_countries.dbf')
+#countries110 = gpd.read_file('/home/dieaigar/geodata/countries110/ne_110m_admin_0_countries.dbf')
+#provinces50 = gpd.read_file('/home/dieaigar/geodata/provinces50/ne_50m_admin_1_states_provinces_lakes.dbf')
+provinces10 = gpd.read_file('/home/dieaigar/geodata/provinces10/ne_10m_admin_1_states_provinces.dbf')
+#provinces10 = provinces10.buffer(20)
+
+#ax.set_aspect('equal')
+#countries50.plot(ax=ax)
+#countries110.plot(ax=ax)
+#provinces50.plot(ax=ax)
+#provinces10.plot(ax=ax)
+#cities.plot(ax=ax, color='red', marker='o', markersize=5)
+
+#plt.show()
+
+
+client = pymongo.MongoClient('localhost', 27017)
+db = client['twitter_db']
+collection = db['valencia_collection']
+
+for tweet in collection.find({}).limit(10):
+    s = shape(tweet['coordinates'])
+    #tweet_country = countries110[countries110.contains(s)]['admin']
+    print(tweet['coordinates']['coordinates'])
+    tweet_province = provinces10[provinces10.intersects(s)].loc[:,['admin','name', 'woe_name']]
+    print(tweet_province)
+    #print(df_tweet)
+
+
+
+'''
+fig, ax = plt.subplots()
+
+countries = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+cities = gpd.read_file(gpd.datasets.get_path('naturalearth_cities'))
+
+ax.set_aspect('equal')
+countries.plot(ax=ax, color='white')
+cities.plot(ax=ax, color='red', marker='o', markersize=5)
+
+plt.show()
+'''
+
+
+'''
+df = geopandas_osm.osm.query_osm('relation', admin_df.ix[10].geometry, recurse='down', tags='place')
+df = df[['place', 'name', 'geometry']]
+print(df)
+df.plot()
+
+plt.show()
+'''
+
+
+
+
+'''
+client = pymongo.MongoClient('localhost', 27017)
+db = client['twitter_db']
+collection = db['valencia_collection']
+
+list_coords = []
+tweets = []
+for tweet in collection.find({}).limit(10):
+    s = shape(tweet['coordinates'])
+    #tweets.append(tweet)
+
+'''
+
+#tweet_df = gpd.GeoDataFrame.from_dict(tweets)
+#tweet_df = tweet_df.set_geometry(list_coords)
+
+
+    #df = geopandas_osm.osm.query_osm('way', s.bounds, recurse='down', tags='place')
+#df = df[df.type == 'LineString'][['place', 'name', 'geometry']]
+#df.plot()
+    #print(df)
+
+
+'''
+
+for tweet in collection.find({}).limit(1):
+    print(tweet)
+    df = gpd.GeoDataFrame.from_dict(tweet['coordinates'])
+    df = df.set_geometry('coordinates')
+
+
+    df = geopandas_osm.osm.query_osm('way', df.total_bounds, recurse='down', tags='place')
+    #df = df[df.type == 'LineString'][['place', 'name', 'geometry']]
+    #df.plot()
+    print(df)
+
+'''
+
+'''
+pois_df = gpd.GeoDataFrame.from_dict(list_pois)
+print(pois_df)
+'''
+
+
+
+
+#pois_df = gpd.read_file(collection.find({}))
+
+
+

@@ -19,7 +19,7 @@ auth.set_access_token(access_token, access_secret)
 class StdOutListener(StreamListener):
 
     def on_data(self, data):
-        print(data)
+        #print(data)
         try:
             # Connection
             client = MongoClient('localhost', 27017)
