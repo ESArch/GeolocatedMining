@@ -145,6 +145,126 @@ def places_in_timeline():
 
     print("@{} visited {}, {} on {}".format(tweet['user']['name'], newCity, newCountry, newDate))
 
+'''
+def visited_places_with_local_geocoder():
+    provinces10 = gpd.read_file('/home/dieaigar/geodata/provinces10/ne_10m_admin_1_states_provinces.dbf')
+
+    #statuses = tweepy.Cursor(api.user_timeline, id=174608487).items()
+    statuses = tweepy.Cursor(api.user_timeline, id=174608487).items()
+
+
+    # We explore the timeline backwards from the most recent to the least
+    # Find de last place visited
+    for status in statuses:
+        tweet = json.loads(json.dumps(status._json))
+        if tweet['coordinates'] != None:
+            s = shape(tweet['coordinates'])
+
+            tweet_province = provinces10.loc[:, ['admin', 'name']]
+            tweet_province['distance'] = provinces10.distance(s)
+            tweet_province = tweet_province.sort_values(by='distance')
+
+
+            lastProvince = tweet_province.at[tweet_province.index[0], 'name']
+            lastCountry = tweet_province.at[tweet_province.index[0], 'admin']
+
+
+            lastDate = prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+            break
+
+
+
+    for status in statuses:
+        tweet = json.loads(json.dumps(status._json))
+        if tweet['coordinates'] != None:
+
+            s = shape(tweet['coordinates'])
+
+            # Using distance
+
+            tweet_province = provinces10.loc[:, ['admin', 'name']]
+            tweet_province['distance'] = provinces10.distance(s)
+            tweet_province = tweet_province.sort_values(by='distance')
+
+
+            newProvince = tweet_province.at[tweet_province.index[0], 'name']
+            newCountry = tweet_province.at[tweet_province.index[0], 'admin']
+
+
+            if lastProvince != newProvince:
+                print("@{} visited {}, {} from {} to {}".format(tweet['user']['name'], lastProvince, lastCountry, prevDate, lastDate))
+
+                lastProvince = newProvince
+                lastCountry = newCountry
+                prevDate = lastDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+            else:
+                prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+    print("@{} visited {}, {} from {} to {}".format(tweet['user']['name'], lastProvince, lastCountry, prevDate, lastDate))
+'''
+
+def visited_places_with_local_geocoder(user_id, tweet_id):
+    provinces10 = gpd.read_file('/home/dieaigar/geodata/provinces10/ne_10m_admin_1_states_provinces.dbf')
+
+    #statuses = tweepy.Cursor(api.user_timeline, id=174608487).items()
+    statuses = tweepy.Cursor(api.user_timeline, id=user_id, max_id=tweet_id).items()
+
+
+    # We explore the timeline backwards from the most recent to the least
+    # Find de last place visited
+    for status in statuses:
+        tweet = json.loads(json.dumps(status._json))
+        if tweet['coordinates'] != None:
+            s = shape(tweet['coordinates'])
+
+            tweet_province = provinces10.loc[:, ['admin', 'name']]
+            tweet_province['distance'] = provinces10.distance(s)
+            tweet_province = tweet_province.sort_values(by='distance')
+
+
+            lastProvince = tweet_province.at[tweet_province.index[0], 'name']
+            lastCountry = tweet_province.at[tweet_province.index[0], 'admin']
+
+
+            lastDate = prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+            break
+
+
+
+    for status in statuses:
+        tweet = json.loads(json.dumps(status._json))
+        if tweet['coordinates'] != None:
+
+            s = shape(tweet['coordinates'])
+
+            # Using distance
+
+            tweet_province = provinces10.loc[:, ['admin', 'name']]
+            tweet_province['distance'] = provinces10.distance(s)
+            tweet_province = tweet_province.sort_values(by='distance')
+
+
+            newProvince = tweet_province.at[tweet_province.index[0], 'name']
+            newCountry = tweet_province.at[tweet_province.index[0], 'admin']
+
+
+            if lastProvince != newProvince:
+                print("@{} visited {}, {} from {} to {}".format(tweet['user']['name'], lastProvince, lastCountry, prevDate, lastDate))
+
+                lastProvince = newProvince
+                lastCountry = newCountry
+                prevDate = lastDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+            else:
+                prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+
+    print("@{} visited {}, {} from {} to {}".format(tweet['user']['name'], lastProvince, lastCountry, prevDate, lastDate))
+
+
+
 
 def timeline_with_local_geocoder():
     provinces10 = gpd.read_file('/home/dieaigar/geodata/provinces10/ne_10m_admin_1_states_provinces.dbf')
@@ -159,53 +279,42 @@ def timeline_with_local_geocoder():
         tweet = json.loads(json.dumps(status._json))
         if tweet['coordinates'] != None:
             s = shape(tweet['coordinates'])
-            tweet_province = provinces10[provinces10.intersects(s)].loc[:, ['admin', 'name', 'woe_name']]
-            if len(tweet_province.index) > 0:
-                lastProvince = tweet_province.at[tweet_province.index[0], 'name']
-                lastCountry = tweet_province.at[tweet_province.index[0], 'admin']
 
-            else:
-                lastProvince = lastCountry = "Unknown"
-
-            lastDate = prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
-
-            break
-
-
-
-    for status in statuses:
-        tweet = json.loads(json.dumps(status._json))
-        if tweet['coordinates'] != None:
-
-            s = shape(tweet['coordinates'])
+            # Using intersect
+            '''
             tweet_province = provinces10[provinces10.intersects(s)].loc[:, ['admin', 'name', 'woe_name']]
 
             if len(tweet_province.index) > 0:
-                newProvince = tweet_province.at[tweet_province.index[0], 'name']
-                newCountry = tweet_province.at[tweet_province.index[0], 'admin']
+                province = tweet_province.at[tweet_province.index[0], 'name']
+                country = tweet_province.at[tweet_province.index[0], 'admin']
 
             else:
-                newProvince = newCountry = "Unknown"
+                province = country = "Unknown"
+            '''
+
+            # Using distance
+
+            tweet_province = provinces10.loc[:, ['admin', 'name']]
+            tweet_province['distance'] = provinces10.distance(s)
+            tweet_province = tweet_province.sort_values(by='distance')
+
+            province = tweet_province.at[tweet_province.index[0], 'name']
+            country = tweet_province.at[tweet_province.index[0], 'admin']
 
 
-            if lastProvince != newProvince:
-                print("@{} visited {}, {} from {} to {}".format(tweet['user']['name'], lastProvince, lastCountry, prevDate, lastDate))
+            date = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
 
-                lastProvince = newProvince
-                lastCountry = newCountry
-                lastDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+            print("{} was in {}, {} on {}".format(tweet['user']['name'], province, country, date))
 
-            else:
-                prevDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
 
-    print("@{} visited {}, {} from {} to {}".format(lastProvince, lastCountry, prevDate, lastDate))
+#visited_places_with_local_geocoder()
 
 
 #actions_in_valencia()
 
 #places_in_timeline()
 
-timeline_with_local_geocoder()
+#timeline_with_local_geocoder()
 
 
 def ins():

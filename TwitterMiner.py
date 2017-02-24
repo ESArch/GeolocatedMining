@@ -4,6 +4,7 @@ from tweepy import Stream
 from tweepy import StreamListener
 
 from pymongo import MongoClient
+from pymongo import errors
 import json
 
 # User credentials to access the Twitter API
@@ -39,10 +40,23 @@ class StdOutListener(StreamListener):
             print('failed ondata,',str(e))
             pass
 
+        except errors.DuplicateKeyError as e:
+            print('Duplicate key, ', str(e))
+            pass
+
         exit()
 
     def on_error(self, status_code):
         print(status_code)
+
+
+    def start_stream(self):
+        while True:
+            try:
+                stream = Stream(auth, l)
+                stream.filter(locations=GEOBOX_VALENCIA)
+            except:
+                continue
 
 
 
@@ -51,9 +65,13 @@ if __name__ == '__main__':
     l = StdOutListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_secret)
-    stream = Stream(auth, l)
 
     GEOBOX_VALENCIA = [-0.4315, 39.4196, -0.2857, 39.5045]
 
-    stream.filter(locations = GEOBOX_VALENCIA)
+    while True:
+        try:
+            stream = Stream(auth, l)
+            stream.filter(locations=GEOBOX_VALENCIA)
+        except:
+            continue
 
