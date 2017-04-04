@@ -1,5 +1,8 @@
 import pymongo
+from tweepy import TweepError
 import geopandas as gpd
+import time
+import sys
 from TimelineExtractor import Timeline
 
 provinces10 = gpd.read_file('/home/dieaigar/geodata/provinces10/ne_10m_admin_1_states_provinces.dbf')
@@ -50,9 +53,24 @@ while not finished:
                         potential_tourist = True
                         break
 
+
         if potential_tourist:
-            print('Extraer timeline de @{} para identificar tipo de usuario'.format(tweet['user']['name']))
-            tl.timeline_until(tweet['user']['id'], tweet['id'])
+            checked = False
+
+            while not checked:
+                print('Extraer timeline de @{} para identificar tipo de usuario'.format(tweet['user']['name']))
+                try:
+                    tl.timeline_until(tweet['user']['id'], tweet['id'])
+                    checked = True
+                except TweepError as e:
+                    print("TweepError: ", str(e))
+                    if "401" in e.args[0]:
+                        checked = True
+                        print("Error 401(Unauthorized): skipping this one")
+                    elif "404" in e.args[0]:
+                        checked = True
+                        print("Error 404(Non existant user: skipping this one")
+
 
         open('last_timestamp', 'w').write(tweet['timestamp_ms'])
 

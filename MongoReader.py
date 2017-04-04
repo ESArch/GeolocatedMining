@@ -1,11 +1,11 @@
-import pymongo
+from pymongo import MongoClient
 from bson import SON
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
 from operator import itemgetter
 
-client = pymongo.MongoClient('localhost', 27017)
+client = MongoClient('localhost', 27017)
 db = client['twitter_db']
 valencia = db['valencia_collection']
 pois = db['poi']
@@ -15,7 +15,7 @@ pois = db['poi']
 #queryWithin = {'coordinates': {"$geoWithin" : {"$geometry" : poi['coordinates']}}}
 
 
-for poi in pois.find().limit(1):
+for poi in pois.find():
     query = {'coordinates': {"$geoWithin" : {"$geometry" : poi['coordinates']}}}
     tweets = valencia.find(query)
     if tweets.count() > 0:
@@ -24,9 +24,10 @@ for poi in pois.find().limit(1):
             print("@{} twitted: {}".format(tweet['user']['id'], tweet['text']))
         print()
 
-
+'''
 tweets_iterator = valencia.find().sort('timestamp_ms', pymongo.ASCENDING)
 f = open("tweetfile", 'w')
 
 for tweet in tweets_iterator:
     f.write(str(tweet['id']) + '    ' + str(tweet['timestamp_ms']) + '\n')
+'''

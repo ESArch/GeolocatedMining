@@ -2,6 +2,7 @@ import pymongo
 import datetime
 import geopandas as gpd
 from TimelineExtractor import Timeline
+import sys
 from shapely.geometry import mapping, shape
 
 client = pymongo.MongoClient('localhost', 27017)
