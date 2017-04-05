@@ -24,6 +24,30 @@ def insert(query, input):
             con.close()
 
 
+def select(query):
+    con = None
+    result = None
+
+    try:
+        con = psycopg2.connect(database='MovieLens', user='postgres', password='postgres', host='localhost')
+
+        cur = con.cursor()
+        cur.execute(query)
+
+        result = cur.fetchall()
+
+
+    except psycopg2.DatabaseError as e:
+
+        print("Error {}".format(e))
+
+    finally:
+
+        if con:
+            con.close()
+
+    return result
+
 def insertGTag():
 
     query = "INSERT INTO gtag(gtag_id, gtag_tag) VALUES(%s, %s)"
@@ -106,28 +130,88 @@ def insertGenre():
     insert(query, genres)
 
 
-def insertGenre():
-    query = "INSERT INTO genre(genre_id, genre_name) VALUES(%s, %s)"
+def insertMovieGenre():
+    query = "INSERT INTO movie_genre(movie_id, genre_id) VALUES(%s, %s)"
+    selectQuery = "SELECT genre_id, genre_name FROM genre"
+    genres_dict = dict()
 
-    genres_set = set()
+    result = select(selectQuery)
+
+    for entry in result:
+        id = int(entry[0])
+        name = entry[1]
+        genres_dict[name] = id
+
+
     genres = list()
 
-    with open("/home/dieaigar/TFMDiego/ml-20m/movies.csv", newline='') as f:
+    with open("C:\\Users\\Arch\\Desktop\\Clase\\TFM\\ml-20m\\movies.csv", encoding='utf8') as f:
         reader = csv.reader(f, delimiter=',')
         next(reader)
         for line in reader:
+            movie_id = int(line[0])
             movie_genres = line[2].split('|')
 
             for genre in movie_genres:
                 if genre == '(no genres listed)':
                     continue
-                genres_set.add(genre)
-
-    id = 0
-    for genre in genres_set:
-        genres.append((id, genre))
-        id += 1
+                genres.append((movie_id, genres_dict[genre]))
 
     insert(query, genres)
 
 
+def insertGTagScore():
+
+    query = "INSERT INTO gtag_score(gtag_id, movie_id, gs_relevance) VALUES(%s, %s, %s)"
+
+    gtag_scores = list()
+
+    with open("C:\\Users\\Arch\\Desktop\\Clase\\TFM\\ml-20m\\genome-scores.csv", encoding='utf8') as f:
+        reader = csv.reader(f, delimiter=',')
+        next(reader)
+        for line in reader:
+            gtag_id = int(line[1])
+            movie_id = int(line[0])
+            relevance = float(line[2])
+
+            gtag_scores.append((
+                gtag_id,
+                movie_id,
+                relevance
+            ))
+
+
+    insert(query, gtag_scores)
+
+
+def insertRating():
+
+    query = "INSERT INTO rating(user_id, movie_id, rating_value) VALUES(%s, %s, %s)"
+
+    ratings = list()
+    count = 0
+
+    with open("C:\\Users\\Arch\\Desktop\\Clase\\TFM\\ml-20m\\ratings.csv", encoding='utf8') as f:
+        reader = csv.reader(f, delimiter=',')
+        next(reader)
+        for line in reader:
+            user_id = int(line[0])
+            movie_id = int(line[1])
+            value = float(line[2])
+
+            ratings.append((
+                user_id,
+                movie_id,
+                value
+            ))
+            count += 1
+
+            if count == 50000:
+                insert(query, ratings)
+                count = 0
+                ratings = list()
+
+
+    insert(query, ratings)
+
+insertRating()
