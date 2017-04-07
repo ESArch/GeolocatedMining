@@ -24,6 +24,29 @@ def insert(query, input):
             con.close()
 
 
+def update(query):
+    con = None
+
+    try:
+        con = psycopg2.connect(database='MovieLens', user='postgres', password='postgres', host='localhost')
+
+        cur = con.cursor()
+
+        cur.execute(query)
+        con.commit()
+
+
+    except psycopg2.DatabaseError as e:
+        if con:
+            con.rollback()
+        print("Error {}".format(e))
+
+    finally:
+
+        if con:
+            con.close()
+
+
 def select(query):
     con = None
     result = None
@@ -101,6 +124,19 @@ def insertMovie():
             movies.append((id, title))
 
     insert(query, movies)
+
+def fixMovieTitle():
+
+    with open("/home/dieaigar/TFMDiego/ml-20m/movies.csv") as f:
+        reader = csv.reader(f, delimiter=',')
+        next(reader)
+        for line in reader:
+            id = int(line[0])
+            title = str(line[1])
+            query = "UPDATE movie SET movie_title = '{}' WHERE movie_id = {}".format(title.replace("'", "''"), id)
+            update(query)
+
+
 
 
 def insertGenre():
@@ -214,4 +250,4 @@ def insertRating():
 
     insert(query, ratings)
 
-insertRating()
+fixMovieTitle()
