@@ -1,4 +1,9 @@
+from operator import itemgetter
+
 import psycopg2
+import networkx as nx
+import matplotlib.pyplot as plt
+from networkx.drawing.nx_agraph import graphviz_layout
 from subprocess import call
 
 def select(query):
@@ -27,24 +32,40 @@ def select(query):
 
 
 def select_movies_by_user(user_id, min_rating):
-    query = "SELECT movie_title, rating FROM rating WHERE user_id = {} AND rating >= {}".format(user_id, min_rating)
+    query = "SELECT movie_id, rating_value FROM rating WHERE user_id = {} AND rating_value >= {}".format(user_id, min_rating)
+    #print(query)
     result = select(query)
+    return [(int(x[0]), movies[int(x[0])], float(x[1])/5) for x in result]
 
 def select_genres_by_movie(movie_id):
     query = "SELECT genre_id FROM movie_genre WHERE movie_id = {}".format(movie_id)
+    #print(query)
     result = select(query)
-    return[(int(x[0]), genres[int(x[0])]) for x in result]
+    return[(int(x[0]), genres[int(x[0])], 1.0) for x in result]
 
 def select_users_by_movie(movie_id, min_rating):
-    query = "SELECT user_id FROM rating WHERE movie_id = {} AND rating_value >= {}".format(movie_id, min_rating)
+    query = "SELECT user_id, rating_value FROM rating WHERE movie_id = {} AND rating_value >= {} AND user_id <= 5000 ".format(movie_id, min_rating)
+    #print(query)
     result = select(query)
-    return[(int(x[0]),) for x in result]
+    return[(int(x[0]), "USER#{}".format(str(int(x[0]))), float(x[1])/5) for x in result]
 
 def select_gtags_by_movie(movie_id, min_relevance):
-    query = "SELECT gtag_id FROM gtag_score WHERE movie_id = {} AND gs_relevance >= {}".format(movie_id, min_relevance)
+    query = "SELECT gtag_id, gs_relevance FROM gtag_score WHERE movie_id = {} AND gs_relevance >= {}".format(movie_id, min_relevance)
+    #print(query)
     result = select(query)
-    return[(int(x[0]),) for x in result]
+    return[(int(x[0]), gtags[int(x[0])], float(x[1])) for x in result]
 
+def select_movies_by_genre(genre_id):
+    query = "SELECT movie_id FROM movie_genre WHERE genre_id = {}".format(genre_id)
+    #print(query)
+    result = select(query)
+    return[(int(x[0]), movies[int(x[0])], 1.0) for x in result]
+
+def select_movies_by_gtag(gtag_id, min_relevance):
+    query = "SELECT movie_id, gs_relevance FROM gtag_score WHERE gtag_id = {} AND gs_relevance >= {}".format(gtag_id, min_relevance)
+    #print(query)
+    result = select(query)
+    return[(int(x[0]), movies[int(x[0])], float(x[1])) for x in result]
 
 
 def buildItemsets(min_rating):
@@ -145,50 +166,135 @@ def run():
 
 def build_graphs():
 
-    with open("decoded.txt", "r") as f:
+    with open("decoded.txt", "r") as f, open("pr.txt", "w") as out:
         for line in f:
+            g = nx.Graph()
+            node_list = list()
+            edge_list = list()
             pattern = line.strip().split(" ")
+            movies_in_pattern = list()
             for element in pattern:
-                build_graph((int(element), movies[(int(element))]), "movie", set(), set(), 3)
-                break
+                first_node = (int(element), movies[(int(element))])
+                movies_in_pattern += [movies[(int(element))]]
+                #print(first_node)
+                nodes = set()
+                nodes.add(first_node)
+                nodes, edges = build_graph(first_node, "movie", nodes, set(), 2)
+                node_list += [x[1] for x in nodes]
+                edge_list += [(x[0][1], x[1][1], x[2]) for x in edges]
+                # print(edge_list)
+                # print(len(nodes))
+                # print(len(edges))
+                #print(node_list)
+                #print(edge_list)
+                # g = nx.Graph()
+                # g.add_nodes_from(node_list)
+                # g.add_weighted_edges_from(edge_list)
+                #nx.draw(g)
+                # pr = nx.pagerank(g.to_directed(), alpha=0.9)
+                # print(sorted(pr.items(), key=lambda kv: kv[1], reverse=True))
 
-def build_graph(node, node_type, nodes, edges, distance, ):
+                # ranked_nodes = nx.pagerank(g).items()
+                # nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
+                #relevant_nodes = sorted(map(itemgetter(0), nodes_by_rank[:10]))
+                # relevant_nodes = nodes_by_rank[:20]
+                #relevant_edges = list()
+                # for edge in edge_list:
+                #     if edge[0] in relevant_nodes or edge[1] in relevant_nodes:
+                #         relevant_edges.append(edge)
+
+                # print(relevant_nodes)
+                #print(relevant_edges)
+                # rg = nx.Graph()
+                # g.add_nodes_from(relevant_nodes)
+                # g.add_weighted_edges_from(relevant_edges)
+                # nx.draw(rg)
+                # plt.show()
+
+                #pos = graphviz_layout(g)
+                #nx.draw_graphviz(g, pos)
+
+            g = nx.Graph()
+            g.add_nodes_from(node_list)
+            g.add_weighted_edges_from(edge_list)
+
+            ranked_nodes = nx.pagerank(g).items()
+            nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
+            relevant_nodes = nodes_by_rank[:20]
+            print(relevant_nodes)
+
+            out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
+            out.write(" ".join(str(s) for s in relevant_nodes))
+            out.write("\n\n")
+            out.flush()
+
+
+
+
+
+def build_graph(node, node_type, nodes, edges, distance ):
+    #print(node_type, distance)
+
     if distance == 0:
         return nodes, edges
 
     if node_type == "movie":
 
         movie_id = node[0]
-
-
         new_nodes = select_genres_by_movie(movie_id)
-        edges.update( [(node, new_node) for new_node in new_nodes] )
-        nodes.update(new_nodes)
+        # print(len(new_nodes))
+
+        edges.update( [(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes] )
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
         for new_node in new_nodes:
            nodes, edges = build_graph(new_node, "genre", nodes, edges, distance - 1)
 
+
         new_nodes = select_users_by_movie(movie_id, 3)
-        edges.update([(node, new_node) for new_node in new_nodes])
-        nodes.update(new_nodes)
+        # print(len(new_nodes))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
         for new_node in new_nodes:
            nodes, edges = build_graph(new_node, "user", nodes, edges, distance - 1)
 
         new_nodes = select_gtags_by_movie(movie_id, 0.5)
-        edges.update([(node, new_node) for new_node in new_nodes])
-        nodes.update(new_nodes)
+        # print(len(new_nodes))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
         for new_node in new_nodes:
             nodes, edges = build_graph(new_node, "gtag", nodes, edges, distance - 1)
 
-        pass
+
     elif node_type == "genre":
-        # get_movies()
-        pass
+        genre_id = node[0]
+        new_nodes = select_movies_by_genre(genre_id)
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+        for new_node in new_nodes:
+            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
+
+
     elif node_type == "gtag":
-        # get_movies()
-        pass
+        gtag_id = node[0]
+        new_nodes = select_movies_by_gtag(gtag_id, 0.5)
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+        for new_node in new_nodes:
+            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
+
+
     elif node_type == "user":
-        # get_movies()
-        pass
+        user_id = node[0]
+        new_nodes = select_movies_by_user(user_id, 3)
+        # edges.update([(node, new_node) for new_node in new_nodes])
+        # nodes.update(new_nodes)
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+        for new_node in new_nodes:
+            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
+
 
     return nodes, edges
 

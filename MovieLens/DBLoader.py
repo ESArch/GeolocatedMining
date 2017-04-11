@@ -127,7 +127,9 @@ def insertMovie():
 
 def fixMovieTitle():
 
-    with open("/home/dieaigar/TFMDiego/ml-20m/movies.csv") as f:
+    #with open("/home/dieaigar/TFMDiego/ml-20m/movies.csv") as f:
+
+    with open("C:\\Users\\Arch\\Desktop\\Clase\\TFM\\ml-20m\\movies.csv", encoding='utf8') as f:
         reader = csv.reader(f, delimiter=',')
         next(reader)
         for line in reader:
