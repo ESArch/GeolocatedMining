@@ -218,17 +218,33 @@ def build_graphs():
             g.add_nodes_from(node_list)
             g.add_weighted_edges_from(edge_list)
 
+
+
             ranked_nodes = nx.pagerank(g).items()
             nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
-            relevant_nodes = nodes_by_rank[:20]
-            print(relevant_nodes)
+            relevant_nodes = nodes_by_rank[:10]
+            relevant_nodes_labels = [x[0] for x in relevant_nodes]
+
+
+            relevant_edges = list()
+            for edge in edge_list:
+                if edge[0] in relevant_nodes_labels or edge[1] in relevant_nodes_labels:
+                    relevant_edges.append(edge)
+
+            print(relevant_edges)
+
+            gpr = nx.Graph()
+            gpr.add_weighted_edges_from(relevant_edges)
+
+            nx.draw(gpr)
+            plt.show()
 
             out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
             out.write(" ".join(str(s) for s in relevant_nodes))
             out.write("\n\n")
             out.flush()
 
-
+            break
 
 
 
