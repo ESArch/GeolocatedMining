@@ -11,7 +11,7 @@ def select(query):
     result = None
 
     try:
-        con = psycopg2.connect(database='MovieLens', user='postgres', password='postgres', host='localhost')
+        con = psycopg2.connect(database='eTurismo', user='postgres', password='postgres', host='localhost')
 
         cur = con.cursor()
         cur.execute(query)
