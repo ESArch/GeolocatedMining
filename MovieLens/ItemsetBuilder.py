@@ -164,8 +164,9 @@ def run():
     run_spmf()
     decode(inv_map)
 
-def build_graphs():
+def build_graphs(distance, min_rating, min_relevance):
 
+    count = 0
     with open("decoded.txt", "r") as f, open("pr.txt", "w") as out:
         for line in f:
             g = nx.Graph()
@@ -180,7 +181,8 @@ def build_graphs():
                 movies_in_pattern += [movies[(int(element))]]
                 nodes = set()
                 nodes.add(first_node)
-                nodes, edges = build_graph(first_node, "movie", nodes, set(), 2)
+                # nodes, edges = build_graph(first_node, "movie", nodes, set(), 2)
+                nodes, edges = build_graph_lite(first_node, "movie", nodes, set(), distance, min_rating, min_relevance)
 
                 # Keep only the names
                 node_list += [x[1] for x in nodes]
@@ -194,37 +196,40 @@ def build_graphs():
 
             print(nx.info(g))
 
-            nx.write_gml(g, "test.gml")
+            g_filename = "graphs/g{}.gml".format(count)
+            nx.write_gml(g, g_filename)
+
+            count += 1
 
 
-            # Rank nodes using Pagerank algorithm
-            ranked_nodes = nx.pagerank(g).items()
-            # Sort the nodes by relevance
-            nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
-            # Top 10 relevant nodes
-            relevant_nodes = nodes_by_rank[:10]
-            # Remove the relevance
-            relevant_nodes_labels = [x[0] for x in relevant_nodes]
+            # # Rank nodes using Pagerank algorithm
+            # ranked_nodes = nx.pagerank(g).items()
+            # # Sort the nodes by relevance
+            # nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
+            # # Top 10 relevant nodes
+            # relevant_nodes = nodes_by_rank[:10]
+            # # Remove the relevance
+            # relevant_nodes_labels = [x[0] for x in relevant_nodes]
 
             # Find the edges linking 2 relevant nodes
-            relevant_edges = list()
-            for edge in edge_list:
-                if edge[0] in relevant_nodes_labels and edge[1] in relevant_nodes_labels:
-                    relevant_edges.append(edge)
+            # relevant_edges = list()
+            # for edge in edge_list:
+            #     if edge[0] in relevant_nodes_labels and edge[1] in relevant_nodes_labels:
+            #         relevant_edges.append(edge)
 
             # Build a graph with the relevant nodes
-            gpr = nx.Graph()
-            gpr.add_weighted_edges_from(relevant_edges)
+            # gpr = nx.Graph()
+            # gpr.add_weighted_edges_from(relevant_edges)
 
-            nx.draw(gpr)
-            plt.show()
+            # nx.draw(g, with_labels=True)
+            # plt.show()
 
-            out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
-            out.write(" ".join(str(s) for s in relevant_nodes))
-            out.write("\n\n")
-            out.flush()
+            # out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
+            # out.write(" ".join(str(s) for s in relevant_nodes))
+            # out.write("\n\n")
+            # out.flush()
 
-            break
+            # break
 
 
 
@@ -295,8 +300,50 @@ def build_graph(node, node_type, nodes, edges, distance ):
     return nodes, edges
 
 
+def build_graph_lite(node, node_type, nodes, edges, distance, min_rating, min_relevance ):
+
+    if distance == 0:
+        return nodes, edges
+
+
+    if node_type == "movie":
+
+        movie_id = node[0]
+
+        found_nodes = select_gtags_by_movie(movie_id, min_relevance)
+        found_nodes = set(found_nodes)
+        new_nodes = found_nodes.difference(nodes)
+
+        # print("Found {} tags for movie {}".format(len(new_nodes), movies[movie_id]))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+
+        for new_node in new_nodes:
+            nodes, edges = build_graph_lite(new_node, "gtag", nodes, edges, distance - 1, min_rating, min_relevance)
+
+
+
+    elif node_type == "gtag":
+        gtag_id = node[0]
+
+        found_nodes = select_movies_by_gtag(gtag_id, min_relevance)
+        found_nodes = set(found_nodes)
+        new_nodes = found_nodes.difference(nodes)
+
+        # print("Found {} movies for tag {}".format(len(new_nodes), gtags[gtag_id]))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+        for new_node in new_nodes:
+            nodes, edges = build_graph_lite(new_node, "movie", nodes, edges, distance - 1, min_rating, min_relevance)
+
+
+    return nodes, edges
+
+
 movies = build_movie_dict()
 genres = build_genre_dict()
 gtags = build_gtag_dict()
 
-build_graphs()
+build_graphs(3, 4, 0.95)

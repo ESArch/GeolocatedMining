@@ -79,8 +79,8 @@ def expanding_step(subgraphs, heaps, epsilons):
                     intersection = subgraphs[i].intersection(subgraphs[j])
                     if len(intersection) != 0:
                         merge = True
-                        subgraphs[i] = subgraphs[i].union(subgraphs[j])
-                        # subgraphs[i] = intersection
+                        # subgraphs[i] = subgraphs[i].union(subgraphs[j])
+                        subgraphs[i] = intersection
                         subgraphs[j] = set()
                         heaps[i].update(heaps[j])
                         # heap_intersection = SortedDict()
@@ -132,4 +132,4 @@ for subgraph in subgraphs:
         filename = "sub{}.pdf".format(str(count))
         count += 1
         plt.savefig(filename)
-        plt.show()
+        # plt.show()
