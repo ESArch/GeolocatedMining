@@ -342,8 +342,26 @@ def build_graph_lite(node, node_type, nodes, edges, distance, min_rating, min_re
     return nodes, edges
 
 
+def print_labels():
+    count = 0
+    with open("decoded.txt", "r") as f, open("labels.txt", "w") as g:
+        for line in f:
+            pattern = line.strip().split(" ")
+            pattern_labels = [movies[int(x)] for x in pattern]
+            print(pattern_labels)
+
+            g.write("{}: ".format(count) + " ".join(pattern_labels) + "\n")
+            count += 1
+
+
 movies = build_movie_dict()
 genres = build_genre_dict()
 gtags = build_gtag_dict()
 
-build_graphs(3, 4, 0.95)
+# build_graphs(3, 4, 0.95)
+
+
+
+
+
+
