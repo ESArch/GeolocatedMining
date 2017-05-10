@@ -1,10 +1,16 @@
-from operator import itemgetter
-
+from pymongo import MongoClient
+import pymongo
+import datetime
+from bson import SON
+import re
 import psycopg2
-import networkx as nx
-import matplotlib.pyplot as plt
-from networkx.drawing.nx_agraph import graphviz_layout
-from subprocess import call
+
+client = MongoClient('localhost', 27017)
+db = client['twitter_db']
+tcol = db['tourist_tweets']
+pcol = db['poi']
+ucol = db['users']
+scol = db['sequences']
 
 def select(query):
     con = None
@@ -31,272 +37,207 @@ def select(query):
     return result
 
 
-def select_movies_by_user(user_id, min_rating):
-    query = "SELECT movie_id, rating_value FROM rating WHERE user_id = {} AND rating_value >= {}".format(user_id, min_rating)
-    #print(query)
-    result = select(query)
-    return [(int(x[0]), movies[int(x[0])], float(x[1])/5) for x in result]
-
-def select_genres_by_movie(movie_id):
-    query = "SELECT genre_id FROM movie_genre WHERE movie_id = {}".format(movie_id)
-    #print(query)
-    result = select(query)
-    return[(int(x[0]), genres[int(x[0])], 1.0) for x in result]
-
-def select_users_by_movie(movie_id, min_rating):
-    query = "SELECT user_id, rating_value FROM rating WHERE movie_id = {} AND rating_value >= {} AND user_id <= 5000 ".format(movie_id, min_rating)
-    #print(query)
-    result = select(query)
-    return[(int(x[0]), "USER#{}".format(str(int(x[0]))), float(x[1])/5) for x in result]
-
-def select_gtags_by_movie(movie_id, min_relevance):
-    query = "SELECT gtag_id, gs_relevance FROM gtag_score WHERE movie_id = {} AND gs_relevance >= {}".format(movie_id, min_relevance)
-    #print(query)
-    result = select(query)
-    return[(int(x[0]), gtags[int(x[0])], float(x[1])) for x in result]
-
-def select_movies_by_genre(genre_id):
-    query = "SELECT movie_id FROM movie_genre WHERE genre_id = {}".format(genre_id)
-    #print(query)
-    result = select(query)
-    return[(int(x[0]), movies[int(x[0])], 1.0) for x in result]
-
-def select_movies_by_gtag(gtag_id, min_relevance):
-    query = "SELECT movie_id, gs_relevance FROM gtag_score WHERE gtag_id = {} AND gs_relevance >= {}".format(gtag_id, min_relevance)
-    #print(query)
-    result = select(query)
-    return[(int(x[0]), movies[int(x[0])], float(x[1])) for x in result]
+def create_place_dict():
+    query = "SELECT poi_id, code_place FROM place"
+    results = select(query)
+    places = dict()
+    for result in results:
+        poi_id = result[0]
+        code_place = result[1]
+        places[poi_id] = code_place
+    return places
 
 
-def buildItemsets(min_rating):
-
-    user_ratings = dict()
+def build_itemsets(distance, undefined=True, only_tourists=True):
     hash_table = dict()
     count = 0
 
-    query = "SELECT user_id, movie_id, rating_value FROM rating WHERE rating_value <= {} ORDER BY user_id".format(min_rating)
-    result = select(query)
+    places = create_place_dict()
+
+    f = open('input/is_user.txt', mode='w')
+    g = open('translation_tables/is_user_tt', mode='w')
 
 
-    for entry in result:
-        user_id = entry[0]
-        movie_id = entry[1]
-        movie_hash = hash_table.get(movie_id, 0)
-        if movie_hash == 0:
-            count += 1
-            hash_table[movie_id] = count
-            movie_hash = count
 
-        ratings = user_ratings.get(user_id, [])
-        ratings += [movie_hash]
-        user_ratings[user_id] = ratings
+    q1 = {'touristLocal': 'tourist'}
+    q2 = {'$or': [{'touristLocal': 'tourist'}, {'touristLocal': 'undefined'}]}
 
-    with open('itemsets.txt', 'w') as f:
-        for key in user_ratings.keys():
-            f.write(" ".join(list(map(str, sorted(user_ratings[key])))))
+    if only_tourists:
+        query = q1
+    else:
+        query = q2
+
+    for tourist in ucol.find(query):
+        tweets = []
+        item_set = set()
+        for sequence in scol.find({'user_id': tourist['id']}).sort('serial', pymongo.ASCENDING):
+            for id in sequence['sequence']:
+                for tweet in tcol.find({'id': id}):
+                    tweets.append(tweet)
+
+                    lon = tweet['coordinates']['coordinates'][0]
+                    lat = tweet['coordinates']['coordinates'][1]
+                    queryNear = {'coordinates': SON(
+                        [('$near', {"type": "Point", "coordinates": [lon, lat]}), ('$maxDistance', distance)])}
+
+
+
+                    close_pois = pcol.find(queryNear)
+
+                    closest_poi = 'UNDEFINED'
+
+                    if close_pois.count() > 0:
+                        code_place = places.get(close_pois.next()['id'], -1)
+                        if code_place == -1:
+                            continue
+                        closest_poi = code_place
+                    else:
+                        if not undefined:
+                            continue
+
+                    '''
+                    print(lon, lat)
+                    print(closest_poi)
+
+                    for poi in pcol.find():
+                        queryWithin = {'id': tweet['id'],'coordinates': {"$geoWithin" : {"$geometry" : poi['coordinates']}}}
+                        for tweet in tcol.find(queryWithin):
+                            print("tweeted from inside of {}".format(poi['name']))
+                    '''
+
+                    code = hash_table.get(closest_poi, 0)
+                    if code == 0:
+                        count += 1
+                        hash_table[closest_poi] = count
+                        code = count
+
+
+                    item_set.add(code)
+
+        if len(item_set) > 0:
+            f.write(" ".join(list(map(str, sorted(item_set)))))
             f.write("\n")
 
-    return hash_table
+    aux = []
+    for key,value in hash_table.items():
+        aux += [(key, value)]
 
-def run_spmf():
+    sorted_aux = sorted(aux, key=lambda tup: tup[1])
 
-    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "itemsets.txt", "output.txt", "5%"]
-    call(args)
-
-def build_movie_dict():
-
-    movies = dict()
-
-    query = "SELECT movie_id, movie_title FROM movie"
-    result = select(query)
-
-    prev_size = 0
-    for entry in result:
-        id = entry[0]
-        title = entry[1]
-        movies[id] = title
-
-    return movies
+    for item in sorted_aux:
+        g.write(str(item[1]) + "\t" + item[0] + "\n")
 
 
-def build_genre_dict():
+def build_itemsets_by_day(distance, undefined=True, only_tourists=True):
+    hash_table = dict()
+    count = 0
 
-    genres = dict()
+    f = open('DatasetBuilding/input/is_userdays.txt', mode='w')
+    g = open('DatasetBuilding/translation_tables/is_userdays_tt', mode='w')
 
-    query = "SELECT genre_id, genre_name FROM genre"
-    result = select(query)
+    q1 = {'touristLocal': 'tourist'}
+    q2 = {'$or': [{'touristLocal': 'tourist'}, {'touristLocal': 'undefined'}]}
 
-    for entry in result:
-        id = entry[0]
-        name = entry[1]
-        genres[id] = name
+    if only_tourists:
+        query = q1
+    else:
+        query = q2
 
-    return genres
+    for tourist in ucol.find(query):
+        tweets = []
+        item_set = set()
+        prevDate = None
+        for sequence in scol.find({'user_id': tourist['id']}).sort('serial', pymongo.ASCENDING):
+            for id in sequence['sequence']:
+                for tweet in tcol.find({'id': id}):
 
+                    currentDate = datetime.datetime.strptime(tweet['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
 
-def build_gtag_dict():
-    gtags = dict()
+                    if prevDate is None:
+                        prevDate = currentDate
 
-    query = "SELECT gtag_id, gtag_tag FROM gtag"
-    result = select(query)
+                    if (currentDate.date() - prevDate.date()).days > 0:
+                        f.write(" ".join(list(map(str, sorted(item_set)))))
+                        f.write("\n")
+                        item_set = set()
 
-    for entry in result:
-        id = entry[0]
-        tag = entry[1]
-        gtags[id] = tag
+                    #print(currentDate)
 
-    return gtags
+                    tweets.append(tweet)
 
+                    lon = tweet['coordinates']['coordinates'][0]
+                    lat = tweet['coordinates']['coordinates'][1]
+                    queryNear = {'coordinates': SON(
+                        [('$near', {"type": "Point", "coordinates": [lon, lat]}), ('$maxDistance', distance)])}
 
-def decode(movie_map):
-    with open("output.txt", "r") as f, open("decoded.txt", 'w') as g:
-        for line in f:
-            pattern = line.split(" #SUP: ")[0].split(" ")
-            for i in range(len(pattern)):
-                pattern[i] = str(movie_map.get(int(pattern[i]), 0))
+                    close_pois = pcol.find(queryNear).limit(1)
 
-            g.write(" ".join(pattern) + "\n")
+                    closest_poi = 'UNDEFINED'
 
+                    if close_pois.count() > 0:
+                        closest_poi = close_pois.next()['name']
+                    else:
+                        if not undefined:
+                            continue
 
-def run():
-    movie_hashtable = buildItemsets(3)
-    inv_map = {v: k for k, v in movie_hashtable.items()}
-    run_spmf()
-    decode(inv_map)
+                    code = hash_table.get(closest_poi, 0)
+                    if code == 0:
+                        count += 1
+                        hash_table[closest_poi] = count
+                        code = count
 
-def build_graphs():
+                    item_set.add(code)
 
-    with open("decoded.txt", "r") as f, open("pr.txt", "w") as out:
-        for line in f:
-            g = nx.Graph()
-            node_list = list()
-            edge_list = list()
-            movies_in_pattern = list() # Pattern description
+        if len(item_set) > 0:
+            f.write(" ".join(list(map(str, sorted(item_set)))))
+            f.write("\n")
 
+    aux = []
+    for key, value in hash_table.items():
+        aux += [(key, value)]
 
-            pattern = line.strip().split(" ")
-            for element in pattern:
-                first_node = (int(element), movies[(int(element))])
-                movies_in_pattern += [movies[(int(element))]]
-                nodes = set()
-                nodes.add(first_node)
-                nodes, edges = build_graph(first_node, "movie", nodes, set(), 2)
+    sorted_aux = sorted(aux, key=lambda tup: tup[1])
 
-                # Keep only the names
-                node_list += [x[1] for x in nodes]
-                edge_list += [(x[0][1], x[1][1], x[2]) for x in edges]
-
-
-            # Build the networkx.Graph
-            g = nx.Graph()
-            g.add_nodes_from(node_list)
-            g.add_weighted_edges_from(edge_list)
-
-            print(nx.info(g))
-
-            nx.write_gml(g, "test.gml")
+    for item in sorted_aux:
+        g.write(str(item[1]) + "\t" + item[0] + "\n")
 
 
-            # Rank nodes using Pagerank algorithm
-            ranked_nodes = nx.pagerank(g).items()
-            # Sort the nodes by relevance
-            nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
-            # Top 10 relevant nodes
-            relevant_nodes = nodes_by_rank[:10]
-            # Remove the relevance
-            relevant_nodes_labels = [x[0] for x in relevant_nodes]
+def decode(output, decoded, translation_table):
+    places = []
 
-            # Find the edges linking 2 relevant nodes
-            relevant_edges = list()
-            for edge in edge_list:
-                if edge[0] in relevant_nodes_labels and edge[1] in relevant_nodes_labels:
-                    relevant_edges.append(edge)
+    f = open("DatasetBuilding/translation_tables/" + translation_table, 'r')
+    lines = f.readlines()
+    for line in lines:
+        places.append(line.split("\t")[1].strip())
 
-            # Build a graph with the relevant nodes
-            gpr = nx.Graph()
-            gpr.add_weighted_edges_from(relevant_edges)
+    f = open("DatasetBuilding/output/" + output, 'r')
+    lines = f.readlines()
 
-            nx.draw(gpr)
-            plt.show()
-
-            out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
-            out.write(" ".join(str(s) for s in relevant_nodes))
-            out.write("\n\n")
-            out.flush()
-
-            break
+    g = open("DatasetBuilding/decoded/" + decoded, 'w')
+    for line in lines:
+        splitted_line = re.split(',| ', line)
+        for i in range(len(splitted_line)):
+            if "#SUP" not in splitted_line[i]:
+                try:
+                    splitted_line[i] = places[int(splitted_line[i]) - 1]
+                except:
+                    continue
+            else:
+                break
+        g.write(" ".join(splitted_line))
 
 
 
-def build_graph(node, node_type, nodes, edges, distance ):
-    #print(node_type, distance)
-
-    if distance == 0:
-        return nodes, edges
-
-    if node_type == "movie":
-
-        movie_id = node[0]
-        new_nodes = select_genres_by_movie(movie_id)
-        # print(len(new_nodes))
-
-        edges.update( [(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes] )
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-           nodes, edges = build_graph(new_node, "genre", nodes, edges, distance - 1)
 
 
-        new_nodes = select_users_by_movie(movie_id, 5)
-        # print(len(new_nodes))
-
-        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-           nodes, edges = build_graph(new_node, "user", nodes, edges, distance - 1)
-
-        new_nodes = select_gtags_by_movie(movie_id, 0.9)
-        # print(len(new_nodes))
-
-        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-            nodes, edges = build_graph(new_node, "gtag", nodes, edges, distance - 1)
 
 
-    elif node_type == "genre":
-        genre_id = node[0]
-        new_nodes = select_movies_by_genre(genre_id)
-        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
+build_itemsets(15, undefined=False, only_tourists=True)
+# build_itemsets_by_day(25, undefined=False, only_tourists=True)
 
 
-    elif node_type == "gtag":
-        gtag_id = node[0]
-        new_nodes = select_movies_by_gtag(gtag_id, 0.9)
-        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
 
 
-    elif node_type == "user":
-        user_id = node[0]
-        new_nodes = select_movies_by_user(user_id, 5)
-        # edges.update([(node, new_node) for new_node in new_nodes])
-        # nodes.update(new_nodes)
-        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
-        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
-        for new_node in new_nodes:
-            nodes, edges = build_graph(new_node, "movie", nodes, edges, distance - 1)
+# decode("is_user.out", "is_user", "is_user_tt")
+# decode("is_userdays.out", "is_userdays", "is_userdays_tt")
 
-
-    return nodes, edges
-
-
-movies = build_movie_dict()
-genres = build_genre_dict()
-gtags = build_gtag_dict()
-
-build_graphs()

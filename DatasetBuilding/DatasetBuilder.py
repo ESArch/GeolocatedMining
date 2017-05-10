@@ -16,8 +16,8 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
     hash_table = dict()
     count = 0
 
-    f = open('DatasetBuilding/input/is_user.txt', mode='w')
-    g = open('DatasetBuilding/translation_tables/is_user_tt', mode='w')
+    f = open('input/is_user.txt', mode='w')
+    g = open('translation_tables/is_user_tt', mode='w')
 
 
 
@@ -330,14 +330,14 @@ def decode(output, decoded, translation_table):
 
 
 
-# build_itemsets(25, undefined=False, only_tourists=True)
+build_itemsets(15, undefined=False, only_tourists=True)
 # build_itemsets_by_day(25, undefined=False, only_tourists=True)
 # build_sequences(25, undefined=False, only_tourists=True)
 # build_sequences_by_day(25, undefined=False, only_tourists=True)
 
 
 
-decode("is_user.out", "is_user", "is_user_tt")
-decode("is_userdays.out", "is_userdays", "is_userdays_tt")
-decode("seq_user.out", "seq_user", "seq_user_tt")
-decode("seq_userdays.out", "seq_userdays", "seq_userdays_tt")
+# decode("is_user.out", "is_user", "is_user_tt")
+# decode("is_userdays.out", "is_userdays", "is_userdays_tt")
+# decode("seq_user.out", "seq_user", "seq_user_tt")
+# decode("seq_userdays.out", "seq_userdays", "seq_userdays_tt")

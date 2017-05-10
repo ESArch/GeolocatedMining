@@ -8,7 +8,7 @@ print("Connected ")
 
 
 cur = conn.cursor()
-query = "SELECT poi_nombre, poi_tipo_lugar, ST_ASGEOJSON(poi_poligono) FROM geoturismo.punto_interes"
+query = "SELECT poi_id, poi_nombre, poi_tipo_lugar, ST_ASGEOJSON(poi_poligono) FROM geoturismo.punto_interes"
 cur.execute(query)
 
 result = cur.fetchall()
@@ -21,8 +21,9 @@ collection = db['poi']
 
 for data in result:
     poi = {}
-    poi['name'] = data[0]
-    poi['category'] = data[1]
-    poi['coordinates'] = ast.literal_eval(data[2])
+    poi['id'] = data[0]
+    poi['name'] = data[1]
+    poi['category'] = data[2]
+    poi['coordinates'] = ast.literal_eval(data[3])
     #print(poi)
     collection.insert(poi)
