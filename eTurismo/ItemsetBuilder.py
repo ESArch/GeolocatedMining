@@ -4,6 +4,7 @@ import datetime
 from bson import SON
 import re
 import psycopg2
+from subprocess import call
 
 client = MongoClient('localhost', 27017)
 db = client['twitter_db']
@@ -127,6 +128,8 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
     for item in sorted_aux:
         g.write(str(item[1]) + "\t" + item[0] + "\n")
 
+    return hash_table
+
 
 def build_itemsets_by_day(distance, undefined=True, only_tourists=True):
     hash_table = dict()
@@ -227,12 +230,29 @@ def decode(output, decoded, translation_table):
         g.write(" ".join(splitted_line))
 
 
+def decode(inv_map):
+    with open("output/is_user.txt", "r") as f, open("decoded/is_user.txt", 'w') as g:
+        for line in f:
+            pattern = line.split(" #SUP: ")[0].split(" ")
+            for i in range(len(pattern)):
+                pattern[i] = str(inv_map.get(int(pattern[i]), 0))
+
+            g.write(" ".join(pattern) + "\n")
+
+def run_spmf():
+
+    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "input/is_user.txt", "output/is_user.txt", "1%"]
+    call(args)
 
 
 
 
+map = build_itemsets(15, undefined=False, only_tourists=True)
+inv_map = {v: k for k, v in map.items()}
+run_spmf()
+decode(inv_map)
 
-build_itemsets(15, undefined=False, only_tourists=True)
+
 # build_itemsets_by_day(25, undefined=False, only_tourists=True)
 
 
