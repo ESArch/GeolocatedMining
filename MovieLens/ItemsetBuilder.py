@@ -5,6 +5,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.drawing.nx_agraph import graphviz_layout
 from subprocess import call
+import pandas as pd
 
 def select(query):
     con = None
@@ -148,6 +149,19 @@ def build_gtag_dict():
     return gtags
 
 
+def build_gtag_score_table(min_relevance):
+    query = "SELECT gtag_id, movie_id, gs_relevance FROM gtag_score WHERE gs_relevance >= {}".format(min_relevance)
+    result = select(query)
+
+    tuples = [(x[0], x[1]) for x in result]
+    values = [x[2] for x in result]
+
+    index = pd.MultiIndex.from_tuples(tuples, names=['gtag_id', 'movie_id'])
+
+    s = pd.Series(values, index=index)
+
+    return s
+
 def decode(movie_map):
     with open("output.txt", "r") as f, open("decoded.txt", 'w') as g:
         for line in f:
@@ -169,7 +183,6 @@ def build_graphs(distance, min_rating, min_relevance):
     count = 0
     with open("decoded.txt", "r") as f, open("pr.txt", "w") as out:
         for line in f:
-            g = nx.Graph()
             node_list = list()
             edge_list = list()
             movies_in_pattern = list() # Pattern description
@@ -182,7 +195,8 @@ def build_graphs(distance, min_rating, min_relevance):
                 nodes = set()
                 nodes.add(first_node)
                 # nodes, edges = build_graph(first_node, "movie", nodes, set(), 2)
-                nodes, edges = build_graph_lite(first_node, "movie", nodes, set(), distance, min_rating, min_relevance)
+                # nodes, edges = build_graph_lite(first_node, "movie", nodes, set(), distance, min_rating, min_relevance)
+                nodes, edges = build_graph_fast(first_node, "movie", nodes, set(), distance)
 
                 # Keep only the names
                 node_list += [x[1] for x in nodes]
@@ -193,6 +207,7 @@ def build_graphs(distance, min_rating, min_relevance):
             g = nx.Graph()
             g.add_nodes_from(node_list)
             g.add_weighted_edges_from(edge_list)
+            g.name = ", ".join(movies_in_pattern)
 
             print(nx.info(g))
 
@@ -342,6 +357,58 @@ def build_graph_lite(node, node_type, nodes, edges, distance, min_rating, min_re
     return nodes, edges
 
 
+def build_graph_fast(node, node_type, nodes, edges, distance):
+
+    if distance == 0:
+        return nodes, edges
+
+
+    if node_type == "movie":
+
+        movie_id = node[0]
+
+        try:
+            found_gtags = gtag_score[:, movie_id].to_dict().items()
+        except:
+            found_gtags = []
+        found_nodes = [(x[0], gtags[x[0]], x[1]) for x in found_gtags]
+        found_nodes = set(found_nodes)
+        new_nodes = found_nodes.difference(nodes)
+
+        # print("Found {} tags for movie {}".format(len(new_nodes), movies[movie_id]))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+
+        for new_node in new_nodes:
+            nodes, edges = build_graph_fast(new_node, "gtag", nodes, edges, distance - 1)
+
+
+
+    elif node_type == "gtag":
+        gtag_id = node[0]
+
+        try:
+            found_movies = gtag_score[gtag_id, :].to_dict().items()
+        except:
+            found_movies = []
+
+        found_nodes = [(x[0], movies[x[0]], x[1]) for x in found_movies]
+        found_nodes = set(found_nodes)
+        new_nodes = found_nodes.difference(nodes)
+
+        # print("Found {} movies for tag {}".format(len(new_nodes), gtags[gtag_id]))
+
+        edges.update([(node, (new_node[0], new_node[1]), new_node[2]) for new_node in new_nodes])
+        nodes.update([(new_node[0], new_node[1]) for new_node in new_nodes])
+        for new_node in new_nodes:
+            nodes, edges = build_graph_fast(new_node, "movie", nodes, edges, distance - 1)
+
+
+    return nodes, edges
+
+
+
 def print_labels():
     count = 0
     with open("decoded.txt", "r") as f, open("labels.txt", "w") as g:
@@ -357,6 +424,7 @@ def print_labels():
 movies = build_movie_dict()
 genres = build_genre_dict()
 gtags = build_gtag_dict()
+gtag_score = build_gtag_score_table(0.95)
 
 # build_graphs(3, 4, 0.95)
 

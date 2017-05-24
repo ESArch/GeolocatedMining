@@ -1,9 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-num_graphs = 174
+num_graphs = 276
 
-for i in range(83, num_graphs):
+for i in range(num_graphs):
     filename = "graphs/g{}.gml".format(i)
     filename2 = "img/g{}.pdf".format(i)
     g = nx.read_gml(filename)
@@ -24,6 +24,7 @@ for i in range(83, num_graphs):
 
     pos = nx.spring_layout(g)  # G is my graph
     plt.figure(i, figsize=(50,50))
+    plt.title(g.name, fontsize=48)
     nx.draw(g, pos, nodelist=d.keys(), node_size=[v*100 for v in d.values()], node_color='#A0CBE2', edge_color='#BB0000', width=1, edge_cmap=plt.cm.Blues, with_labels=False, font_size=8)
     nx.draw_networkx_labels(g, pos, labels)
     plt.savefig(filename2, dpi=1000, facecolor='w', edgecolor='w', orientation='portrait', papertype=None, format=None,

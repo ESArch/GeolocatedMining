@@ -10,43 +10,43 @@ graph [
   ]
   node [
     id 2
-    label "Campo de Golf del Saler"
-  ]
-  node [
-    id 3
     label "Otros espacios abiertos"
   ]
   node [
+    id 3
+    label "Campo de Golf del Saler"
+  ]
+  node [
     id 4
-    label "Clubs y discotecas"
+    label "Puerto"
   ]
   node [
     id 5
-    label "Puerto"
+    label "Clubs y discotecas"
   ]
   edge [
     source 0
-    target 5
-    weight 9.2
+    target 4
+    weight 46.0
   ]
   edge [
     source 1
-    target 2
-    weight 9.6
+    target 3
+    weight 48.0
   ]
   edge [
     source 2
     target 3
-    weight 12.0
+    weight 60.0
   ]
   edge [
-    source 3
-    target 5
-    weight 12.0
+    source 2
+    target 4
+    weight 60.0
   ]
   edge [
     source 4
     target 5
-    weight 9.8
+    weight 49.0
   ]
 ]
