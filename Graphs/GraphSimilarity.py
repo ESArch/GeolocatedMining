@@ -1,6 +1,7 @@
 import networkx as nx
 import numpy as np
 from scipy.spatial import distance
+import matplotlib.pyplot as plt
 
 def select_k(spectrum, minimum_energy = 0.9):
     running_total = 0.0
@@ -105,6 +106,8 @@ def FaBP_similarity(g1, g2):
     all_nodes = list(set(g1_nodes).union(set(g2_nodes)))
 
     clique = nx.complete_graph(len(all_nodes))
+    # clique = nx.Graph()
+    # clique.add_nodes_from(range(len(all_nodes)))
 
     my_g1.add_nodes_from(nodes_not_in_g1)
     my_g2.add_nodes_from(nodes_not_in_g2)
@@ -141,8 +144,11 @@ def FaBP_similarity(g1, g2):
 
     similarity = list()
     for i in range(len(all_nodes)):
+        beliefs_g1 = g1_inv_beliefs[:,i]
+        beliefs_g2 = g2_inv_beliefs[:,i]
+        beliefs_difference = beliefs_g1 - beliefs_g2
 
-        numerator = np.power(g1_inv_beliefs[:,i] - g2_inv_beliefs[:,i], 2)
+        numerator = np.power(beliefs_difference, 2)
         denominator = np.power(clique_inv_beliefs[:,i] - 0.5, 2)
         distance = np.sqrt(sum(np.divide(numerator, denominator)))
         similarity.append(1 / (1 + distance))
@@ -160,8 +166,33 @@ def FaBP_similarity(g1, g2):
 
 # g1 = nx.read_gml("../eTurismo/graphs/g0.gml")
 # g2 = nx.read_gml("../eTurismo/graphs/g1.gml")
-#
+
+g1 = nx.read_gml("../MovieLens/graphs/g0.gml")
+g2 = nx.read_gml("../MovieLens/graphs/g1.gml")
+
 # print(FaBP_similarity(g1,g2))
+
+
+K5 = nx.complete_graph(5)
+eK5 = nx.complete_graph(5)
+eK5.remove_edge(4,3)
+
+
+C5 = nx.cycle_graph(5)
+eC5 = nx.cycle_graph(5)
+eC5.remove_edge(1,2)
+
+P5 = nx.path_graph(5)
+eP5 = nx.path_graph(5)
+eP5.remove_edge(2,3)
+
+print(FaBP_similarity(K5, eK5))
+print(FaBP_similarity(C5, eC5))
+print(FaBP_similarity(P5, eP5))
+
+nx.draw(eP5)
+plt.show()
+
 
 
 
