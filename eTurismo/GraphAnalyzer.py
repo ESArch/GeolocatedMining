@@ -21,12 +21,12 @@ def compute_similarity_matrix():
             similarities[i, j] = sim
             similarities[j, i] = sim
 
-    np.save("sim4.npy", similarities)
+    np.save("sim5.npy", similarities)
 
-# compute_similarity_matrix()
-similarities = np.load("sim4.npy")
+compute_similarity_matrix()
+similarities = np.load("sim5.npy")
 
-with open("eTurismo4.txt", "w", encoding="utf8") as f:
+with open("eTurismo5.txt", "w", encoding="utf8") as f:
     for i in range(58):
         g = nx.read_gml("graphs/g{}.gml".format(i))
         # Rank nodes using Pagerank algorithm
@@ -41,7 +41,7 @@ with open("eTurismo4.txt", "w", encoding="utf8") as f:
         sim_graph_indexes = reversed(similarities[i].argsort())
         sim_graphs = list()
         for j in sim_graph_indexes:
-            if similarities[i][j] >= 0.9:
+            if similarities[i][j] >= 0.:
                 g2 = nx.read_gml("graphs/g{}.gml".format(j))
                 sim_graphs.append("{} ({})".format(g2.name, similarities[i][j]))
 

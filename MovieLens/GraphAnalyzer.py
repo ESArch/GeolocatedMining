@@ -29,7 +29,7 @@ def compute_similarity_matrix():
             similarities[i, j] = sim
             similarities[j, i] = sim
 
-        np.save("sim4.npy", similarities)
+        np.save("sim5.npy", similarities)
         print(similarities[i])
 
         with open("last_row.txt", "w") as f:
@@ -39,10 +39,10 @@ def compute_similarity_matrix():
 
 compute_similarity_matrix()
 
-similarities = np.load("sim4.npy")
+similarities = np.load("sim5.npy")
 
 # print(similarities)
-with open("MovieLens4.txt", "w", encoding="utf8") as f:
+with open("MovieLens5.txt", "w", encoding="utf8") as f:
     for i in range(276):
         g = nx.read_gml("graphs/g{}.gml".format(i))
         # Rank nodes using Pagerank algorithm
@@ -55,7 +55,7 @@ with open("MovieLens4.txt", "w", encoding="utf8") as f:
         sim_graph_indexes = reversed(similarities[i].argsort())
         sim_graphs = list()
         for j in sim_graph_indexes:
-            if similarities[i][j] >= 0.9:
+            if similarities[i][j] >= 0.:
                 g2 = nx.read_gml("graphs/g{}.gml".format(j))
                 sim_graphs.append("{} ({})".format(g2.name, similarities[i][j]))
 
