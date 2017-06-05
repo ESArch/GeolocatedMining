@@ -142,12 +142,12 @@ def FaBP_similarity(g1, g2):
     my_g1.add_nodes_from(nodes_not_in_g1)
     my_g2.add_nodes_from(nodes_not_in_g2)
 
-    # g1_inv_beliefs = compute_inverse_beliefs(my_g1, all_nodes)
-    # g2_inv_beliefs = compute_inverse_beliefs(my_g2, all_nodes)
-    # clique_inv_beliefs = compute_inverse_beliefs(clique, clique.nodes())
-    g1_final_beliefs = compute_beliefs(my_g1, all_nodes, prior_beliefs)
-    g2_final_beliefs = compute_beliefs(my_g2, all_nodes, prior_beliefs)
-    clique_final_beliefs = compute_beliefs(clique, all_nodes, prior_beliefs)
+    g1_inv_beliefs = compute_inverse_beliefs(my_g1, all_nodes)
+    g2_inv_beliefs = compute_inverse_beliefs(my_g2, all_nodes)
+    clique_inv_beliefs = compute_inverse_beliefs(clique, clique.nodes())
+    # g1_final_beliefs = compute_beliefs(my_g1, all_nodes, prior_beliefs)
+    # g2_final_beliefs = compute_beliefs(my_g2, all_nodes, prior_beliefs)
+    # clique_final_beliefs = compute_beliefs(clique, all_nodes, prior_beliefs)
 
 
     # print(np.matmul(g1_inv_beliefs, prior_beliefs))
@@ -177,38 +177,32 @@ def FaBP_similarity(g1, g2):
     #         dist += np.power(g1_inv_beliefs[j,i] - g2_inv_beliefs[j,i], 2) / np.power(clique_inv_beliefs[j,i] - 0.5, 2)
     #     similarity.append(1 / (1 + np.sqrt(dist)))
 
-    # similarity = list()
-    # for i in range(len(all_nodes)):
-    #     beliefs_g1 = g1_inv_beliefs[:,i]
-    #     beliefs_g2 = g2_inv_beliefs[:,i]
-    #     beliefs_difference = beliefs_g1 - beliefs_g2
-    #
-    #     numerator = np.power(beliefs_difference, 2)
-    #     denominator = np.power(clique_inv_beliefs[:,i] - 0.5, 2)
-    #     distance = np.sqrt(sum(np.divide(numerator, denominator)))
-    #     similarity.append(1 / (1 + distance))
-
-
-    # final_beliefs_g1 = np.matmul(g1_inv_beliefs, prior_beliefs)
-    # final_beliefs_g2 = np.matmul(g2_inv_beliefs, prior_beliefs)
-    # final_beliefs_clique = np.matmul(clique_inv_beliefs, prior_beliefs)
-
-    distance = 0.
+    similarity = list()
     for i in range(len(all_nodes)):
-        distance += np.power(g1_final_beliefs[i,0]-g2_final_beliefs[i,0], 2) / np.power(clique_final_beliefs[i,0]-prior_beliefs[i,0], 2)
+        beliefs_g1 = g1_inv_beliefs[:,i]
+        beliefs_g2 = g2_inv_beliefs[:,i]
+        beliefs_difference = beliefs_g1 - beliefs_g2
 
-    distance = np.sqrt(distance)
+        numerator = np.power(beliefs_difference, 2)
+        denominator = np.power(clique_inv_beliefs[:,i] - 0.5, 2)
+        distance = np.sqrt(sum(np.divide(numerator, denominator)))
+        similarity.append(1 / (1 + distance))
 
-    # print(distance)
-    similarity = 1 / (1+distance)
+
+    # distance = 0.
+    # for i in range(len(all_nodes)):
+    #     distance += np.power(g1_final_beliefs[i,0]-g2_final_beliefs[i,0], 2) / np.power(clique_final_beliefs[i,0]-prior_beliefs[i,0], 2)
+    #
+    # distance = np.sqrt(distance)
+    # similarity = 1 / (1+distance)
 
 
 
 
     # print(np.average(similarity))
 
-    # return  np.average(similarity)
-    return  similarity
+    return  np.average(similarity)
+    # return  similarity
 
 
 
