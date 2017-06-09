@@ -246,18 +246,13 @@ def run_spmf():
 
 
 
-
+# Extract the encoded itemsets using a sequential numbering and store the map seq_num -> id
 map = build_itemsets(15, undefined=False, only_tourists=True)
+# Invert the key-values of the map (value -> key) to use later for decoding
 inv_map = {v: k for k, v in map.items()}
+# Extract the frequent patterns
 run_spmf()
+# Decode the frequent patterns to obtain the real id instead of the sequential number
 decode(inv_map)
 
-
-# build_itemsets_by_day(25, undefined=False, only_tourists=True)
-
-
-
-
-# decode("is_user.out", "is_user", "is_user_tt")
-# decode("is_userdays.out", "is_userdays", "is_userdays_tt")
 
