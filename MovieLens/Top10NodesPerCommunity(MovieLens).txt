@@ -1,0 +1,114 @@
+Community 0:
+	comedy, parody, spoof, goofy, silly fun, british comedy, stand-up comedy, off-beat comedy, funniest movies, funny
+
+Community 1:
+	music, rock and roll, musicians, biopic, biographical, 70mm, musical, dancing, dance, hip hop
+
+Community 2:
+	teen movie, teen, high school, coming of age, teens, adolescence, road trip, geeks, childhood, awesome soundtrack
+
+Community 3:
+	imdb top 250, violence, oscar (best directing), crime, oscar (best picture), gangsters, violent, oscar (best supporting actor), social commentary, oscar (best cinematography)
+
+Community 4:
+	police investigation, police, murder mystery, undercover cop, lawyers, mother-son relationship, detective, police corruption, robert downey jr, lawyer
+
+Community 5:
+	criterion, surreal, loneliness, japan, weird, golden palm, meditative, melancholic, anime, bleak
+
+Community 6:
+	animation, cartoon, computer animation, talking animals, based on a tv show, kids and family, animated, christmas, dog, stop motion
+
+Community 7:
+	horror, splatter, serial killer, remake, creepy, slasher, supernatural, small town, ghosts, cult classic
+
+Community 8:
+	action, good action, super hero, superhero, superheroes, based on a comic, special effects, big budget, adventure, adapted from:comic
+
+Community 9:
+	gay, gay character, based on a play, homosexuality, queer, shakespeare, glbt, feel-good, father son relationship, cross dressing
+
+Community 10:
+	based on a book, adapted from:book, based on book, fantasy, fantasy world, magic, dark fantasy, 18th century, imagination, wizards
+
+Community 11:
+	sci-fi, scifi, science fiction, sci fi, space, alien, futuristic, future, aliens, visually appealing
+
+Community 12:
+	western, gunfight, indians, civil war, native americans, india, bollywood, Good, the Bad and the Ugly, The (Buono, il brutto, il cattivo, Il) (1966), Dances with Wolves (1990), Once Upon a Time in the West (C'era una volta il West) (1968)
+
+Community 13:
+	sexual, pornography, obsession, male nudity, spanish, erotic, sex, bdsm, sexualized violence, adultery
+
+Community 14:
+	romantic comedy, relationships, romantic, chick flick, love story, girlie movie, love, french, france, women
+
+Community 15:
+	vampires, vampire, sequels, good sequel, sequel, werewolves, immortality, werewolf, Twilight Saga: New Moon, The (2009), Twilight (2008)
+
+Community 16:
+	franchise, tense, espionage, spying, heist, twists & turns, assassin, conspiracy, chase, hitchcock
+
+Community 17:
+	sports, true story, based on a true story, based on true story, football, australia, racing, baseball, segregation, survival
+
+Community 18:
+	world war ii, wwii, war, wartime, germany, nazis, best war films, history, oscar (best foreign language film), jews
+
+Community 19:
+	prison, prison escape, Ain't Them Bodies Saints (2013), Rock, The (1996), Papillon (1973), À nous la liberté (Freedom for Us) (1931), alcatraz, Escape Plan (2013), Murder in the First (1995), Man Escaped, A (Un  condamné à mort s'est échappé ou Le vent souffle où il veut) (1956)
+
+Community 20:
+	politics, documentary, political, corruption, world politics, latin america, greed, president, africa, satire
+
+Community 21:
+	martial arts, fight scenes, kung fu, mentor, video game, fighting, video game adaptation, based on a video game, ninja, wuxia
+
+Community 22:
+	drugs, marijuana, addiction, drug addiction, weed, drug abuse, road movie, Scanner Darkly, A (2006), Requiem for a Dream (2000), Fear and Loathing in Las Vegas (1998)
+
+Community 23:
+	god, christianity, biblical, christian, jesus, religion, rome, catholicism, israel, view askew
+
+Community 24:
+	mexico, Under the Same Moon (Misma luna, La) (2007)
+
+Community 25:
+	irish, irish accent, ireland, Evelyn (2002), Angela's Ashes (1999), Waking Ned Devine (a.k.a. Waking Ned) (1998), Michael Collins (1996), Wind That Shakes the Barley, The (2006), Commitments, The (1991), Leap Year (2010)
+
+Community 26:
+	Pooh's Heffalump Movie (2005), cute
+
+Community 27:
+	To Sir with Love (1967), school
+
+Community 28:
+	American Dream (1990), minnesota
+
+Community 29:
+	Traviata, La (1982), opera
+
+Community 30:
+	mining, Margaret's Museum (1995), Matewan (1987)
+
+Community 31:
+	Flyboys (2006), aviation
+
+Community 32:
+	Godzilla, King of the Monsters! (Kaijû-ô Gojira) (1956), better than the american version
+
+Community 33:
+	Born Rich (2003), money
+
+Community 34:
+	oscar (best music - original song), Nashville (1975)
+
+Community 35:
+	identity, Time (Shi gan) (2006)
+
+Community 36:
+	My Voyage to Italy (Il mio viaggio in Italia) (1999), italian
+
+Community 37:
+	creativity, Work of Director Michel Gondry, The (2003)
+

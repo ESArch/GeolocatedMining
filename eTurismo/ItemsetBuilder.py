@@ -96,15 +96,6 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
                         if not undefined:
                             continue
 
-                    '''
-                    print(lon, lat)
-                    print(closest_poi)
-
-                    for poi in pcol.find():
-                        queryWithin = {'id': tweet['id'],'coordinates': {"$geoWithin" : {"$geometry" : poi['coordinates']}}}
-                        for tweet in tcol.find(queryWithin):
-                            print("tweeted from inside of {}".format(poi['name']))
-                    '''
 
                     code = hash_table.get(closest_poi, 0)
                     if code == 0:

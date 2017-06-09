@@ -23,7 +23,14 @@ def compute_similarity_matrix():
 
     np.save("sim5.npy", similarities)
 
-compute_similarity_matrix()
+
+
+
+
+
+# compute_similarity_matrix()
+# compute_significance_matrix()
+
 similarities = np.load("sim5.npy")
 
 with open("eTurismo5.txt", "w", encoding="utf8") as f:
