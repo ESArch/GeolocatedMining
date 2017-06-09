@@ -85,6 +85,8 @@ def compute_similarity_matrix():
 
         print("Similarities for node {} stored".format(i))
 
+    return similarities
+
 
 def compute_significance_matrix():
     num_movies = 27278

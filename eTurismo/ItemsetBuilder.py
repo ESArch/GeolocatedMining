@@ -55,9 +55,9 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
 
     places = create_place_dict()
 
-    f = open('input/is_user.txt', mode='w')
-    g = open('translation_tables/is_user_tt', mode='w')
-
+    f = open('data/encoded_itemsets.txt', mode='w')
+    g = open('data/translation_table.txt', mode='w')
+    o = open('data/decoded_itemsets.txt', mode='w')
 
 
     q1 = {'touristLocal': 'tourist'}
@@ -71,6 +71,7 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
     for tourist in ucol.find(query):
         tweets = []
         item_set = set()
+        places_set = set()
         for sequence in scol.find({'user_id': tourist['id']}).sort('serial', pymongo.ASCENDING):
             for id in sequence['sequence']:
                 for tweet in tcol.find({'id': id}):
@@ -88,7 +89,8 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
                     closest_poi = 'UNDEFINED'
 
                     if close_pois.count() > 0:
-                        code_place = places.get(close_pois.next()['id'], -1)
+                        place_id = close_pois.next()['id']
+                        code_place = places.get(place_id, -1)
                         if code_place == -1:
                             continue
                         closest_poi = code_place
@@ -105,10 +107,16 @@ def build_itemsets(distance, undefined=True, only_tourists=True):
 
 
                     item_set.add(code)
+                    places_set.add(code_place)
 
         if len(item_set) > 0:
             f.write(" ".join(list(map(str, sorted(item_set)))))
             f.write("\n")
+
+        if len(places_set) > 0:
+            o.write(" ".join(list(map(str, places_set))))
+            o.write("\n")
+
 
     aux = []
     for key,value in hash_table.items():
@@ -222,7 +230,7 @@ def decode(output, decoded, translation_table):
 
 
 def decode(inv_map):
-    with open("output/is_user.txt", "r") as f, open("decoded/is_user.txt", 'w') as g:
+    with open("data/spmf_output.txt", "r") as f, open("data/decoded_patterns.txt", 'w') as g:
         for line in f:
             pattern = line.split(" #SUP: ")[0].split(" ")
             for i in range(len(pattern)):
@@ -232,7 +240,7 @@ def decode(inv_map):
 
 def run_spmf():
 
-    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "input/is_user.txt", "output/is_user.txt", "1%"]
+    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "data/encoded_itemsets.txt", "data/spmf_output.txt", "1%"]
     call(args)
 
 

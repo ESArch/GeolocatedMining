@@ -82,10 +82,10 @@ def build_place_preferences_table():
     return s
 
 
-def build_graphs(distance):
+def build_graphs(distance, input_file, output_folder):
 
     count = 0
-    with open("decoded/is_user.txt", "r") as f:
+    with open("data/{}".format(input_file), "r") as f:
         for line in f:
             node_list = list()
             edge_list = list()
@@ -113,7 +113,7 @@ def build_graphs(distance):
 
             print(nx.info(g))
 
-            g_filename = "graphs/g{}.gml".format(count)
+            g_filename = "{}/g{}.gml".format(output_folder,count)
             nx.write_gml(g, g_filename)
 
             count += 1
@@ -220,5 +220,7 @@ preferences = build_preference_dict()
 place_preferences = build_place_preferences_table()
 
 
-build_graphs(4)
+# build_graphs(4, "decoded_patterns.txt", "graphs")
+build_graphs(4, "places.txt", "place_graphs")
+
 

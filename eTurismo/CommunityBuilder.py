@@ -57,7 +57,7 @@ def build_preference_dict():
     return preferences
 
 def build_place_preferences_table():
-    query = "SELECT id_preferences, code_place, value_interese FROM place_preferences"
+    query = "SELECT pp.id_preferences, pp.code_place, value_interese FROM place_preferences pp, place p WHERE p.code_place = pp.code_place AND p.poi_id IS NOT NULL"
     result = select(query)
 
     tuples = [(int(x[0]), int(x[1])) for x in result]

@@ -2,107 +2,107 @@ graph [
   name "Plaza de la Reina"
   node [
     id 0
-    label "Mercado de Col&#243;n"
-  ]
-  node [
-    id 1
-    label "Teatro Rialto"
-  ]
-  node [
-    id 2
-    label "Iglesia de Santa Catalina"
-  ]
-  node [
-    id 3
-    label "Iglesia de la Compa&#241;a"
-  ]
-  node [
-    id 4
-    label "Plaza Redonda"
-  ]
-  node [
-    id 5
-    label "Plaza de la Virgen"
-  ]
-  node [
-    id 6
-    label "Fuente del Turia (Plaza de la Virgen)"
-  ]
-  node [
-    id 7
-    label "Colegio del Arte Mayor de la Seda"
-  ]
-  node [
-    id 8
-    label "Torres de Quart"
-  ]
-  node [
-    id 9
-    label "Calles y plazas"
-  ]
-  node [
-    id 10
-    label "Palacio de la Batlia (Diputaci&#243;n de Valencia)"
-  ]
-  node [
-    id 11
-    label "Archivo Hist&#243;rico Municipal (Palacio de Cervello)"
-  ]
-  node [
-    id 12
-    label "Iglesia y Torre de Santa Catalina"
-  ]
-  node [
-    id 13
-    label "Real Club Na&#250;tico de Valencia"
-  ]
-  node [
-    id 14
-    label "Museo de historia de Valencia"
-  ]
-  node [
-    id 15
     label "Plaza del Carmen"
   ]
   node [
-    id 16
-    label "Galer&#237;a del Tossal"
+    id 1
+    label "Museo Valenciano de Historia Natural"
   ]
   node [
-    id 17
-    label "El Almud&#237;n"
+    id 2
+    label "Casa-Museo Benlliure"
   ]
   node [
-    id 18
+    id 3
+    label "Complejo Deportivo Cultural Petxina"
+  ]
+  node [
+    id 4
+    label "Plaza de la Virgen"
+  ]
+  node [
+    id 5
+    label "Plaza de la Reina"
+  ]
+  node [
+    id 6
+    label "Casa-Museo Blasco Iba&#241;ez"
+  ]
+  node [
+    id 7
+    label "Iglesia de la Compa&#241;a"
+  ]
+  node [
+    id 8
+    label "Ateneo Mercantil"
+  ]
+  node [
+    id 9
+    label "Palacio del Intendente Pineda (sede de la UIMP)"
+  ]
+  node [
+    id 10
+    label "Museo del Arroz"
+  ]
+  node [
+    id 11
+    label "Museo del Siglo XIX (Convento del Carmen)"
+  ]
+  node [
+    id 12
+    label "Museo de Ciencias Naturales"
+  ]
+  node [
+    id 13
     label "Estaci&#243;n-Terminal Mar&#237;tima"
   ]
   node [
-    id 19
-    label "Palacio del Marqu&#233;s de Dos Aguas"
+    id 14
+    label "Edificio Rialto"
   ]
   node [
-    id 20
+    id 15
+    label "Casa de las Rocas-Museo del Corpus"
+  ]
+  node [
+    id 16
+    label "Plaza de la Almoina"
+  ]
+  node [
+    id 17
+    label "Teatro Olympia"
+  ]
+  node [
+    id 18
     label "Ba&#241;os del Almirante"
   ]
   node [
+    id 19
+    label "Fundaci&#243;n Bancaja"
+  ]
+  node [
+    id 20
+    label "Museo Hist&#243;rico Municipal"
+  ]
+  node [
     id 21
-    label "Arabe"
+    label "Plaza Redonda"
   ]
   node [
     id 22
-    label "Museo de prehistoria y de las culturas de Valencia"
+    label "La Carcel de San Vicente (cripta arqueol&#243;gica de l"
   ]
   node [
     id 23
-    label "Palacio Arzobispal (catholic church)"
+    label "Iglesia de las Escuelas P&#237;as"
   ]
   node [
     id 24
-    label "Centro cultural Fundaci&#243;n Bancaja"
+    label "Plaza del Tossal"
   ]
   node [
     id 25
-    label "Complejo Arqueol&#243;gico de la Almoina"
+    label "Casa Museo Benlliure"
   ]
   node [
     id 26
@@ -110,488 +110,488 @@ graph [
   ]
   node [
     id 27
-    label "Complejo Deportivo Cultural Petxina"
+    label "Mercado de Col&#243;n"
   ]
   node [
     id 28
-    label "La Carcel de San Vicente (cripta arqueol&#243;gica de l"
+    label "Teatro Rialto"
   ]
   node [
     id 29
-    label "Plaza de Toros"
-  ]
-  node [
-    id 30
-    label "Museo de Bellas Artes de Valencia-San Pio V"
-  ]
-  node [
-    id 31
-    label "Museo Hist&#243;rico Municipal"
-  ]
-  node [
-    id 32
-    label "Palacio de los Marqueses de Scala (Diputaci&#243;n de Valencia)"
-  ]
-  node [
-    id 33
-    label "Plaza de la Almoina"
-  ]
-  node [
-    id 34
-    label "Museo de Ciencias Naturales"
-  ]
-  node [
-    id 35
-    label "Museo Valenciano de Historia Natural"
-  ]
-  node [
-    id 36
-    label "Casa-Museo de la Semana Santa Marinera"
-  ]
-  node [
-    id 37
-    label "Museo del Siglo XIX (Convento del Carmen)"
-  ]
-  node [
-    id 38
-    label "Tiendas tradicionales"
-  ]
-  node [
-    id 39
-    label "Plaza del Tossal"
-  ]
-  node [
-    id 40
-    label "Edificio Rialto"
-  ]
-  node [
-    id 41
-    label "Iglesia del antiguo Convento del Carmen"
-  ]
-  node [
-    id 42
-    label "Cripta de la C&#225;rcel de San Vicente"
-  ]
-  node [
-    id 43
-    label "Iglesia de las Escuelas P&#237;as"
-  ]
-  node [
-    id 44
-    label "Plaza de la Reina"
-  ]
-  node [
-    id 45
-    label "Jardines de Viveros"
-  ]
-  node [
-    id 46
-    label "Teatro Olympia"
-  ]
-  node [
-    id 47
-    label "Ateneo Mercantil"
-  ]
-  node [
-    id 48
-    label "Museo del Arroz"
-  ]
-  node [
-    id 49
-    label "Iglesia de Santo Tom&#225;s"
-  ]
-  node [
-    id 50
-    label "Bares y pubs"
-  ]
-  node [
-    id 51
-    label "Museo de Cer&#225;mica (Palacio Marqu&#233;s de Dos Aguas)"
-  ]
-  node [
-    id 52
-    label "Estilos y periodos"
-  ]
-  node [
-    id 53
-    label "Plaza del Ayuntamiento"
-  ]
-  node [
-    id 54
-    label "Iglesia de San Esteban"
-  ]
-  node [
-    id 55
-    label "Teatro Principal"
-  ]
-  node [
-    id 56
     label "Ayuntamiento"
   ]
   node [
-    id 57
-    label "Casa-Museo Concha Piquer"
+    id 30
+    label "Iglesia de Santo Tom&#225;s"
   ]
   node [
-    id 58
+    id 31
+    label "Galer&#237;a del Tossal"
+  ]
+  node [
+    id 32
+    label "Palacio de la Batlia (Diputaci&#243;n de Valencia)"
+  ]
+  node [
+    id 33
+    label "Cripta de la C&#225;rcel de San Vicente"
+  ]
+  node [
+    id 34
+    label "Plaza del Ayuntamiento"
+  ]
+  node [
+    id 35
     label "Estatua ecuestre del rey Jaume I"
   ]
   node [
+    id 36
+    label "Calles y plazas"
+  ]
+  node [
+    id 37
+    label "Palacio de los Marqueses de Scala (Diputaci&#243;n de Valencia)"
+  ]
+  node [
+    id 38
+    label "Iglesia del antiguo Convento del Carmen"
+  ]
+  node [
+    id 39
+    label "Bares y pubs"
+  ]
+  node [
+    id 40
+    label "Arabe"
+  ]
+  node [
+    id 41
+    label "Jardines de Viveros"
+  ]
+  node [
+    id 42
+    label "Fuente del Turia (Plaza de la Virgen)"
+  ]
+  node [
+    id 43
+    label "Museo de Bellas Artes de Valencia-San Pio V"
+  ]
+  node [
+    id 44
+    label "Colegio del Arte Mayor de la Seda"
+  ]
+  node [
+    id 45
+    label "Iglesia y Torre de Santa Catalina"
+  ]
+  node [
+    id 46
+    label "Complejo Arqueol&#243;gico de la Almoina"
+  ]
+  node [
+    id 47
+    label "Museo de Cer&#225;mica (Palacio Marqu&#233;s de Dos Aguas)"
+  ]
+  node [
+    id 48
+    label "Archivo Hist&#243;rico Municipal (Palacio de Cervello)"
+  ]
+  node [
+    id 49
+    label "Tiendas tradicionales"
+  ]
+  node [
+    id 50
+    label "Palacio Arzobispal (catholic church)"
+  ]
+  node [
+    id 51
+    label "Palacio del Marqu&#233;s de Dos Aguas"
+  ]
+  node [
+    id 52
+    label "Teatro Principal"
+  ]
+  node [
+    id 53
+    label "Casa-Museo de la Semana Santa Marinera"
+  ]
+  node [
+    id 54
+    label "Real Club Na&#250;tico de Valencia"
+  ]
+  node [
+    id 55
+    label "Torres de Quart"
+  ]
+  node [
+    id 56
+    label "Iglesia de Santa Catalina"
+  ]
+  node [
+    id 57
+    label "Plaza de Toros"
+  ]
+  node [
+    id 58
+    label "Monasterio de S. Miguel de los Reyes-Biblioteca Va"
+  ]
+  node [
     id 59
-    label "Casa-Museo Blasco Iba&#241;ez"
+    label "Museo de historia de Valencia"
   ]
   node [
     id 60
-    label "Casa-Museo Benlliure"
+    label "Casa-Museo Concha Piquer"
   ]
   node [
     id 61
-    label "Casa Museo Benlliure"
+    label "Museo de prehistoria y de las culturas de Valencia"
   ]
   node [
     id 62
-    label "Casa de las Rocas-Museo del Corpus"
+    label "El Almud&#237;n"
   ]
   node [
     id 63
-    label "Fundaci&#243;n Bancaja"
+    label "Estilos y periodos"
   ]
   node [
     id 64
-    label "Palacio del Intendente Pineda (sede de la UIMP)"
+    label "Centro cultural Fundaci&#243;n Bancaja"
   ]
   node [
     id 65
-    label "Monasterio de S. Miguel de los Reyes-Biblioteca Va"
+    label "Iglesia de San Esteban"
   ]
   edge [
     source 0
-    target 50
-    weight 53.0
+    target 36
+    weight 64.0
   ]
   edge [
     source 1
-    target 52
-    weight 100.0
+    target 63
+    weight 52.0
   ]
   edge [
     source 2
-    target 52
-    weight 49.0
-  ]
-  edge [
-    source 3
-    target 52
-    weight 51.0
-  ]
-  edge [
-    source 4
-    target 52
-    weight 49.0
-  ]
-  edge [
-    source 4
-    target 38
-    weight 65.0
-  ]
-  edge [
-    source 4
-    target 9
-    weight 75.0
-  ]
-  edge [
-    source 5
-    target 52
-    weight 48.0
-  ]
-  edge [
-    source 5
-    target 9
-    weight 73.0
-  ]
-  edge [
-    source 6
-    target 52
-    weight 43.0
-  ]
-  edge [
-    source 7
-    target 52
-    weight 50.0
-  ]
-  edge [
-    source 8
-    target 52
-    weight 48.0
-  ]
-  edge [
-    source 9
-    target 33
-    weight 68.0
-  ]
-  edge [
-    source 9
-    target 53
-    weight 66.0
-  ]
-  edge [
-    source 9
-    target 44
-    weight 71.0
-  ]
-  edge [
-    source 9
-    target 39
-    weight 69.0
-  ]
-  edge [
-    source 9
-    target 15
-    weight 64.0
-  ]
-  edge [
-    source 10
-    target 52
-    weight 50.0
-  ]
-  edge [
-    source 11
-    target 52
-    weight 55.0
-  ]
-  edge [
-    source 12
-    target 52
-    weight 100.0
-  ]
-  edge [
-    source 13
-    target 52
-    weight 41.0
-  ]
-  edge [
-    source 14
-    target 52
-    weight 46.0
-  ]
-  edge [
-    source 16
-    target 52
-    weight 45.0
-  ]
-  edge [
-    source 17
-    target 21
-    weight 72.0
-  ]
-  edge [
-    source 18
-    target 52
-    weight 36.0
-  ]
-  edge [
-    source 19
-    target 52
-    weight 50.0
-  ]
-  edge [
-    source 20
-    target 21
-    weight 69.0
-  ]
-  edge [
-    source 21
-    target 33
-    weight 64.0
-  ]
-  edge [
-    source 21
-    target 25
-    weight 71.0
-  ]
-  edge [
-    source 21
-    target 54
-    weight 67.0
-  ]
-  edge [
-    source 22
-    target 52
-    weight 48.0
-  ]
-  edge [
-    source 23
-    target 52
-    weight 51.0
-  ]
-  edge [
-    source 24
-    target 52
-    weight 45.0
-  ]
-  edge [
-    source 26
-    target 52
-    weight 49.0
-  ]
-  edge [
-    source 27
-    target 52
-    weight 50.0
-  ]
-  edge [
-    source 28
-    target 52
-    weight 100.0
-  ]
-  edge [
-    source 29
-    target 52
-    weight 42.0
-  ]
-  edge [
-    source 30
-    target 52
-    weight 49.0
-  ]
-  edge [
-    source 31
-    target 52
-    weight 57.0
-  ]
-  edge [
-    source 32
-    target 52
-    weight 56.0
-  ]
-  edge [
-    source 34
-    target 52
-    weight 47.0
-  ]
-  edge [
-    source 35
-    target 52
-    weight 52.0
-  ]
-  edge [
-    source 36
-    target 52
-    weight 80.0
-  ]
-  edge [
-    source 37
-    target 52
-    weight 52.0
-  ]
-  edge [
-    source 39
-    target 50
-    weight 47.0
-  ]
-  edge [
-    source 40
-    target 52
-    weight 41.0
-  ]
-  edge [
-    source 41
-    target 52
-    weight 45.0
-  ]
-  edge [
-    source 42
-    target 52
-    weight 52.0
-  ]
-  edge [
-    source 43
-    target 52
+    target 63
     weight 53.0
   ]
   edge [
-    source 45
-    target 50
-    weight 55.0
+    source 3
+    target 63
+    weight 50.0
   ]
   edge [
-    source 46
-    target 52
-    weight 100.0
-  ]
-  edge [
-    source 47
-    target 52
-    weight 34.0
-  ]
-  edge [
-    source 48
-    target 52
+    source 4
+    target 36
     weight 73.0
   ]
   edge [
-    source 49
-    target 52
-    weight 41.0
+    source 4
+    target 63
+    weight 48.0
   ]
   edge [
-    source 51
-    target 52
+    source 5
+    target 36
+    weight 71.0
+  ]
+  edge [
+    source 6
+    target 63
+    weight 50.0
+  ]
+  edge [
+    source 7
+    target 63
     weight 51.0
   ]
   edge [
-    source 52
+    source 8
+    target 63
+    weight 34.0
+  ]
+  edge [
+    source 9
+    target 63
+    weight 50.0
+  ]
+  edge [
+    source 10
+    target 63
+    weight 73.0
+  ]
+  edge [
+    source 11
+    target 63
+    weight 52.0
+  ]
+  edge [
+    source 12
+    target 63
+    weight 47.0
+  ]
+  edge [
+    source 13
+    target 63
+    weight 36.0
+  ]
+  edge [
+    source 14
+    target 63
+    weight 41.0
+  ]
+  edge [
+    source 15
+    target 63
+    weight 49.0
+  ]
+  edge [
+    source 16
+    target 40
+    weight 64.0
+  ]
+  edge [
+    source 16
+    target 36
+    weight 68.0
+  ]
+  edge [
+    source 17
     target 63
     weight 100.0
   ]
   edge [
-    source 52
-    target 64
-    weight 50.0
+    source 18
+    target 40
+    weight 69.0
   ]
   edge [
-    source 52
-    target 62
+    source 19
+    target 63
+    weight 100.0
+  ]
+  edge [
+    source 20
+    target 63
+    weight 57.0
+  ]
+  edge [
+    source 21
+    target 49
+    weight 65.0
+  ]
+  edge [
+    source 21
+    target 36
+    weight 75.0
+  ]
+  edge [
+    source 21
+    target 63
     weight 49.0
   ]
   edge [
-    source 52
-    target 58
-    weight 38.0
+    source 22
+    target 63
+    weight 100.0
   ]
   edge [
-    source 52
-    target 55
+    source 23
+    target 63
+    weight 53.0
+  ]
+  edge [
+    source 24
+    target 39
     weight 47.0
   ]
   edge [
-    source 52
-    target 57
-    weight 60.0
+    source 24
+    target 36
+    weight 69.0
   ]
   edge [
-    source 52
-    target 59
+    source 25
+    target 63
+    weight 52.0
+  ]
+  edge [
+    source 26
+    target 63
+    weight 49.0
+  ]
+  edge [
+    source 27
+    target 39
+    weight 53.0
+  ]
+  edge [
+    source 28
+    target 63
+    weight 100.0
+  ]
+  edge [
+    source 29
+    target 63
+    weight 42.0
+  ]
+  edge [
+    source 30
+    target 63
+    weight 41.0
+  ]
+  edge [
+    source 31
+    target 63
+    weight 45.0
+  ]
+  edge [
+    source 32
+    target 63
+    weight 50.0
+  ]
+  edge [
+    source 33
+    target 63
+    weight 52.0
+  ]
+  edge [
+    source 34
+    target 36
+    weight 66.0
+  ]
+  edge [
+    source 35
+    target 63
+    weight 38.0
+  ]
+  edge [
+    source 37
+    target 63
+    weight 56.0
+  ]
+  edge [
+    source 38
+    target 63
+    weight 45.0
+  ]
+  edge [
+    source 39
+    target 41
+    weight 55.0
+  ]
+  edge [
+    source 40
+    target 62
+    weight 72.0
+  ]
+  edge [
+    source 40
+    target 46
+    weight 71.0
+  ]
+  edge [
+    source 40
+    target 65
+    weight 67.0
+  ]
+  edge [
+    source 42
+    target 63
+    weight 43.0
+  ]
+  edge [
+    source 43
+    target 63
+    weight 49.0
+  ]
+  edge [
+    source 44
+    target 63
+    weight 50.0
+  ]
+  edge [
+    source 45
+    target 63
+    weight 100.0
+  ]
+  edge [
+    source 47
+    target 63
+    weight 51.0
+  ]
+  edge [
+    source 48
+    target 63
+    weight 55.0
+  ]
+  edge [
+    source 50
+    target 63
+    weight 51.0
+  ]
+  edge [
+    source 51
+    target 63
     weight 50.0
   ]
   edge [
     source 52
-    target 60
-    weight 53.0
+    target 63
+    weight 47.0
   ]
   edge [
-    source 52
-    target 61
-    weight 52.0
+    source 53
+    target 63
+    weight 80.0
   ]
   edge [
-    source 52
-    target 56
+    source 54
+    target 63
+    weight 41.0
+  ]
+  edge [
+    source 55
+    target 63
+    weight 48.0
+  ]
+  edge [
+    source 56
+    target 63
+    weight 49.0
+  ]
+  edge [
+    source 57
+    target 63
     weight 42.0
   ]
   edge [
-    source 52
-    target 65
+    source 58
+    target 63
     weight 51.0
+  ]
+  edge [
+    source 59
+    target 63
+    weight 46.0
+  ]
+  edge [
+    source 60
+    target 63
+    weight 60.0
+  ]
+  edge [
+    source 61
+    target 63
+    weight 48.0
+  ]
+  edge [
+    source 63
+    target 64
+    weight 45.0
   ]
 ]
