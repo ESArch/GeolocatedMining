@@ -91,12 +91,12 @@ def build_community_graph(min_relevance):
     return g
 
 try:
-    g = nx.read_gml("graphs/community_graph.gml")
+    g = nx.read_gml("communities/community_graph.gml")
     print("Reading graph...")
 except:
     print("Building graph...")
     g = build_community_graph(0.95)
-    nx.write_gml(g, "graphs/community_graph.gml")
+    nx.write_gml(g, "communities/community_graph.gml")
 
 
 print("Graph ready")
@@ -114,7 +114,7 @@ plt.title("MovieLens", fontsize=48)
 
 size = float(len(set(partition.values())))
 pos = nx.spring_layout(g)
-count = 0.
+count = 0
 
 labels = dict()
 for node in g:
@@ -125,7 +125,7 @@ for node in g:
 f = open("Top10NodesPerCommunity(MovieLens).txt", "w")
 
 for com in set(partition.values()) :
-    count = count + 1.
+
     list_nodes = [nodes for nodes in partition.keys()
                                 if partition[nodes] == com]
 
@@ -136,11 +136,19 @@ for com in set(partition.values()) :
     # Top 10 relevant nodes
     relevant_nodes = nodes_by_rank[:10]
 
+    most_relevant_node = nodes_by_rank[0]
+    # Store the community graph
+    c_graph = g.subgraph(list_nodes)
+    c_graph.name = most_relevant_node
+    nx.write_gml(c_graph, "communities/c{}.gml".format(count))
+
     f.write("Community {}:\n".format(count))
     f.write("\t" + ", ".join(relevant_nodes) + "\n\n")
 
     color = (random(), random(), random())
     nx.draw_networkx_nodes(g, pos, list_nodes, node_size = [len(g[node])*100 for node in list_nodes], node_color = color, font_size=8)
+
+    count = count + 1
 
 
 f.close()

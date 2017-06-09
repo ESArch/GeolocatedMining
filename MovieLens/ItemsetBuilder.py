@@ -72,10 +72,11 @@ def select_movies_by_gtag(gtag_id, min_relevance):
 def buildItemsets(min_rating):
 
     user_ratings = dict()
+    user_movies = dict() # Same as user_ratings but NOT enconded
     hash_table = dict()
     count = 0
 
-    query = "SELECT user_id, movie_id, rating_value FROM rating WHERE rating_value <= {} ORDER BY user_id".format(min_rating)
+    query = "SELECT user_id, movie_id, rating_value FROM rating WHERE rating_value >= {} ORDER BY user_id".format(min_rating)
     result = select(query)
 
 
@@ -90,18 +91,28 @@ def buildItemsets(min_rating):
 
         ratings = user_ratings.get(user_id, [])
         ratings += [movie_hash]
+        movies = user_movies.get(user_id, [])
+        movies += [movie_id]
+
         user_ratings[user_id] = ratings
+        user_movies[user_id] = movies
 
     with open('itemsets.txt', 'w') as f:
         for key in user_ratings.keys():
             f.write(" ".join(list(map(str, sorted(user_ratings[key])))))
             f.write("\n")
 
+    with open('decoded_itemsets.txt', 'w') as f:
+        for key in user_movies.keys():
+            f.write(" ".join(list(map(str, user_movies[key]))))
+            f.write("\n")
+
+
     return hash_table
 
 def run_spmf():
 
-    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "itemsets.txt", "output.txt", "5%"]
+    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "itemsets.txt", "output.txt", "10%"]
     call(args)
 
 def build_movie_dict():
@@ -173,19 +184,20 @@ def decode(movie_map):
 
 
 def run():
-    movie_hashtable = buildItemsets(3)
+    movie_hashtable = buildItemsets(4)
     inv_map = {v: k for k, v in movie_hashtable.items()}
     run_spmf()
     decode(inv_map)
 
-def build_graphs(distance, min_rating, min_relevance):
+def build_graphs(distance, min_rating, min_relevance, input_file, output_folder):
 
     count = 0
-    with open("decoded.txt", "r") as f, open("pr.txt", "w") as out:
+    with open(input_file, "r") as f, open("pr.txt", "w") as out:
         for line in f:
             node_list = list()
             edge_list = list()
             movies_in_pattern = list() # Pattern description
+
 
 
             pattern = line.strip().split(" ")
@@ -211,40 +223,14 @@ def build_graphs(distance, min_rating, min_relevance):
 
             print(nx.info(g))
 
-            g_filename = "graphs/g{}.gml".format(count)
+            g_filename = "{}/g{}.gml".format(output_folder, count)
             nx.write_gml(g, g_filename)
 
             count += 1
 
+            if count % 50 == 0:
+                print(count)
 
-            # # Rank nodes using Pagerank algorithm
-            # ranked_nodes = nx.pagerank(g).items()
-            # # Sort the nodes by relevance
-            # nodes_by_rank = sorted(ranked_nodes, key=itemgetter(1), reverse=True)
-            # # Top 10 relevant nodes
-            # relevant_nodes = nodes_by_rank[:10]
-            # # Remove the relevance
-            # relevant_nodes_labels = [x[0] for x in relevant_nodes]
-
-            # Find the edges linking 2 relevant nodes
-            # relevant_edges = list()
-            # for edge in edge_list:
-            #     if edge[0] in relevant_nodes_labels and edge[1] in relevant_nodes_labels:
-            #         relevant_edges.append(edge)
-
-            # Build a graph with the relevant nodes
-            # gpr = nx.Graph()
-            # gpr.add_weighted_edges_from(relevant_edges)
-
-            # nx.draw(g, with_labels=True)
-            # plt.show()
-
-            # out.write("Pattern: {}\n".format(" ".join(movies_in_pattern)))
-            # out.write(" ".join(str(s) for s in relevant_nodes))
-            # out.write("\n\n")
-            # out.flush()
-
-            # break
 
 
 
@@ -421,15 +407,15 @@ def print_labels():
             count += 1
 
 
+
+# run()
+
 movies = build_movie_dict()
 genres = build_genre_dict()
 gtags = build_gtag_dict()
 gtag_score = build_gtag_score_table(0.95)
 
-# build_graphs(3, 4, 0.95)
+# print_labels()
 
-
-
-
-
-
+# build_graphs(3, 4, 0.95, "decoded.txt", "graphs")
+build_graphs(3, 4, 0.95, "movies.txt", "movie_graphs")
