@@ -5,6 +5,13 @@ from operator import itemgetter
 import scipy
 import psycopg2
 
+
+num_patterns = 476
+num_communities = 38
+num_items = 27278
+num_transactions = 138287
+
+
 def select(query):
     con = None
     result = None
@@ -37,7 +44,6 @@ def build_movie_dict():
     query = "SELECT movie_id, movie_title FROM movie"
     result = select(query)
 
-    prev_size = 0
     for entry in result:
         id = entry[0]
         title = entry[1]
@@ -45,12 +51,24 @@ def build_movie_dict():
 
     return movies
 
+
+def build_item_to_row_map():
+
+    items = dict()
+
+    with open("data/items.txt", "r") as f:
+        count = 0
+        for line in f:
+            item_id = eval(line)
+            items[item_id] = count
+            count += 1
+
+    return items
+
 def compute_similarity_matrix():
 
-    num_patterns = 476
-
     try:
-        similarities = np.load("sim5.npy")
+        similarities = np.load("data/sim.npy")
         print("Similarity matrix loaded")
         return similarities
     except:
@@ -58,7 +76,7 @@ def compute_similarity_matrix():
 
     similarities = np.zeros((num_patterns, num_patterns))
 
-    with open("last_row.txt", "r") as f:
+    with open("data/last_row.txt", "r") as f:
         last_row_computed = eval(f.read())
 
     for i in range(last_row_computed, num_patterns):
@@ -77,10 +95,10 @@ def compute_similarity_matrix():
             similarities[i, j] = sim
             similarities[j, i] = sim
 
-        np.save("sim5.npy", similarities)
+        np.save("data/sim.npy", similarities)
         print(similarities[i])
 
-        with open("last_row.txt", "w") as f:
+        with open("data/last_row.txt", "w") as f:
             f.write(str(i))
 
         print("Similarities for node {} stored".format(i))
@@ -88,29 +106,31 @@ def compute_similarity_matrix():
     return similarities
 
 
-def compute_significance_matrix():
-    num_movies = 27278
-    num_communities = 38
-    significances = np.zeros((num_movies,num_communities))
+def compute_item_context():
+
+    try:
+        item_contexts = np.load("data/item_contexts.npy")
+        print("Item context matrix loaded")
+        return item_contexts
+    except:
+        print("Computing item contexts matrix")
+
+        item_contexts = np.zeros((num_items,num_communities))
     community_edges = list()
     for i in range(num_communities):
         g = nx.read_gml("communities/c{}.gml".format(i))
-        community_edges.append(set(g.edges()))
+        community_edges.append(set([tuple(sorted(edge)) for edge in g.edges()]))
 
-    for i in range(num_movies):
-        vector = np.zeros(num_communities)
-        g = nx.read_gml("movie_graphs/g{}.gml".format(i))
-        edges = set(g.edges())
-        for j in range(num_communities):
-            common_edges = set(edges).intersection(community_edges[j])
-            vector[j] = len(common_edges) / len(community_edges[j])
-        significances[i] = vector
+    for i in range(num_items):
+        g = nx.read_gml("item_graphs/g{}.gml".format(i))
+        vector = compute_context(g, community_edges)
+        item_contexts[i] = vector
         if i % 50 == 0:
             print(i)
 
-    np.save("sig.npy", significances)
+    np.save("data/item_contexts.npy", item_contexts)
 
-    return significances
+    return item_contexts
 
 def compute_transaction_context():
 
@@ -122,21 +142,13 @@ def compute_transaction_context():
         print("Computing transaction contexts")
 
 
-    try:
-        significances = np.load("sig.npy")
-    except:
-        significances = compute_significance_matrix()
-
-
-    num_transactions = 138287
-    num_communities = 38
-
+    item_contexts = compute_item_context()
     transaction_contexts = np.zeros((num_transactions, num_communities))
 
-    movies = build_movie_dict()
+    items = build_item_to_row_map()
 
 
-    with open("decoded_itemsets.txt", "r") as f:
+    with open("data/decoded_itemsets.txt", "r") as f:
         count = 0
 
         for line in f:
@@ -148,8 +160,8 @@ def compute_transaction_context():
             pattern = line.strip().split(" ")
             num_elements = 0
             for element in pattern:
-                movie_id = movies[eval(element)]
-                vector += significances[movie_id]
+                item_id = items[eval(element)]
+                vector += item_contexts[item_id]
                 num_elements += 1
 
             vector /= num_elements
@@ -157,20 +169,45 @@ def compute_transaction_context():
 
             count += 1
 
-    print(transaction_contexts)
-    np.save("transaction_contexts.npy", transaction_contexts)
+    np.save("data/transaction_contexts.npy", transaction_contexts)
     return transaction_contexts
 
 
+def compute_pattern_contexts():
+    try:
+        pattern_contexts = np.load("data/pattern_contexts.npy")
+        print("Patterns contexts loaded")
+        return pattern_contexts
+    except:
+        print("Computing patterns contexts")
+
+    community_edges = list()
+    for i in range(num_communities):
+        g = nx.read_gml("communities/c{}.gml".format(i))
+        community_edges.append(set([tuple(sorted(edge)) for edge in g.edges()]))
+
+    pattern_contexts = np.zeros((num_patterns, num_communities))
+
+    for i in range(num_patterns):
+        g = nx.read_gml("graphs/g{}.gml".format(i))
+        pattern_contexts[i] = compute_context(g, community_edges)
+
+    np.save("data/pattern_contexts.npy", pattern_contexts)
+    return pattern_contexts
+
+
 def compute_context(g, community_edges):
-    num_communities = len(community_edges)
 
     vector = np.zeros((1, num_communities))
     edges = set(g.edges())
+    edges = [tuple(sorted(edge)) for edge in edges]
 
     for j in range(num_communities):
-        common_edges = set(edges).intersection(community_edges[j])
-        vector[0,j] = len(common_edges) / len(community_edges[j])
+        common_edges = set(edges)
+        common_edges = common_edges.intersection(community_edges[j])
+        num_common_edges = len(common_edges)
+        num_community_edges = len(community_edges[j])
+        vector[0,j] = num_common_edges / num_community_edges
 
     return vector
 
@@ -178,21 +215,21 @@ def compute_context(g, community_edges):
 
 def analyze():
 
-    similarities = compute_similarity_matrix()
+    # similarities = compute_similarity_matrix()
     transaction_contexts = compute_transaction_context()
+    pattern_contexts = compute_pattern_contexts()
     movies = build_movie_dict()
 
-    num_communities = 38
     community_edges = list()
     for i in range(num_communities):
         g = nx.read_gml("communities/c{}.gml".format(i))
-        community_edges.append(set(g.edges()))
+        community_edges.append(set([tuple(sorted(edge)) for edge in g.edges()]))
 
-    with open("MovieLens5.txt", "w", encoding="utf8") as f, open("decoded_itemsets.txt", "r") as g:
+    with open("MovieLens.txt", "w", encoding="utf8") as f, open("data/decoded_itemsets.txt", "r") as g:
 
         transactions = g.readlines()
 
-        for i in range(476):
+        for i in range(num_patterns):
             g = nx.read_gml("graphs/g{}.gml".format(i))
             # Rank nodes using Pagerank algorithm
             ranked_nodes = g.degree()
@@ -201,44 +238,56 @@ def analyze():
             # Top 10 relevant nodes
             relevant_nodes = nodes_by_rank[:10]
 
+
+            context_vector = pattern_contexts[i,:].reshape(1, num_communities)
+
+
             # Compute similar patterns
+
             # sim_graph_indexes = reversed(similarities[i].argsort())
-            sim_graphs = list()
+            # sim_graphs = list()
             # for j in sim_graph_indexes:
             #     if similarities[i][j] >= 0.:
             #         g2 = nx.read_gml("graphs/g{}.gml".format(j))
             #         sim_graphs.append("{} ({})".format(g2.name, similarities[i][j]))
 
+            distances = scipy.spatial.distance.cdist(pattern_contexts, context_vector, 'cosine')
+            distances = np.reshape(distances, distances.shape[0])
+            sim_patterns_indexes = distances.argsort()
+            sim_graphs = list()
+            for j in sim_patterns_indexes:
+                if 1 - distances[j] >= .9:
+                    g2 = nx.read_gml("graphs/g{}.gml".format(j))
+                    sim_graphs.append("{} ({})".format(g2.name, 1 - distances[j]))
+
 
             # Compute relevant transactions
-            context_vector = compute_context(g, community_edges)
-
             distances = scipy.spatial.distance.cdist(transaction_contexts, context_vector, 'cosine')
             distances = np.reshape(distances, distances.shape[0])
-
 
             sig_transactions_indexes = distances.argsort()[:5]
             significant_transactions = list()
             for j in sig_transactions_indexes:
                 transaction = transactions[j].strip().split(" ")
-                movie_list = list()
+                transaction_context = transaction_contexts[j]
+                places_list = list()
                 for item in transaction:
-                    movie_list.append(movies[eval(item)])
+                    places_list.append(movies[eval(item)])
 
-                significant_transactions.append((distances[j], movie_list))
-
-
-
+                significant_transactions.append((1 - distances[j], places_list))
 
 
             f.write("PATTERN: {}\n".format(g.name))
             f.write("Context indicators:\n")
             f.write("\t" + " | ".join(relevant_nodes) + "\n")
             f.write("Similar patterns: {} synonims\n".format(len(sim_graphs)))
-            f.write("\t" + " | ".join(sim_graphs) + "\n")
+            # f.write("\t" + " | ".join(sim_graphs) + "\n")
+            for j in range(len(sim_graphs)):
+                f.write("\t{}\n".format(sim_graphs[j]))
             f.write("Transactions:\n")
             for j in range(len(significant_transactions)):
-                f.write("\tDistance: {} Transaction: ".format(significant_transactions[j][0]) + " | ".join(significant_transactions[j][1]) + "\n" )
+                f.write("\tSimilarity: {} Transaction: ".format(significant_transactions[j][0]) + " | ".join(
+                    significant_transactions[j][1]) + "\n")
             f.write("\n")
 
 

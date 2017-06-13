@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 num_graphs = 52
-num_communities = 16
+num_communities = 14
 
 def draw_graphs():
     for i in range(num_graphs):

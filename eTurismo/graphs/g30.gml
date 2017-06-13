@@ -2,39 +2,39 @@ graph [
   name "Puerto, Ciudad de las Ciencias"
   node [
     id 0
-    label "Clubs y discotecas"
+    label "Medieval"
   ]
   node [
     id 1
-    label "Casa-Museo Benlliure"
+    label "Palacio del Marqu&#233;s del Campo"
   ]
   node [
     id 2
-    label "Museo de la Ciudad"
+    label "Ciudad de las Ciencias"
   ]
   node [
     id 3
-    label "Teatro Rialto"
+    label "Otros deportes"
   ]
   node [
     id 4
-    label "Centro Julio Gonzalez-IVAM"
+    label "Teatro Principal"
   ]
   node [
     id 5
-    label "Estadios y &#225;reas deportivas"
+    label "Reales Atarazanas"
   ]
   node [
     id 6
-    label "Exposiciones"
+    label "Complejo Arqueol&#243;gico de la Almoina"
   ]
   node [
     id 7
-    label "Jard&#237;n de las Hesp&#225;rides"
+    label "Teatro de Marionetas La Estrella"
   ]
   node [
     id 8
-    label "Ciencia y tecnolog&#237;a"
+    label "Prehist&#243;rico"
   ]
   node [
     id 9
@@ -42,47 +42,47 @@ graph [
   ]
   node [
     id 10
-    label "Teatros"
+    label "Palacio de Justicia"
   ]
   node [
     id 11
-    label "Jardines bot&#225;nicos"
+    label "M&#250;sica clasica"
   ]
   node [
     id 12
-    label "Museo Taurino"
+    label "Cripta de la C&#225;rcel de San Vicente"
   ]
   node [
     id 13
-    label "Fundaci&#243;n Bancaja"
-  ]
-  node [
-    id 14
-    label "Casa Ortega"
-  ]
-  node [
-    id 15
-    label "Complejo Arqueol&#243;gico de la Almoina"
-  ]
-  node [
-    id 16
-    label "Plaza de la Almoina"
-  ]
-  node [
-    id 17
     label "Teatro Olympia"
   ]
   node [
+    id 14
+    label "Futbol"
+  ]
+  node [
+    id 15
+    label "Archivo Hist&#243;rico Municipal (Palacio de Cervello)"
+  ]
+  node [
+    id 16
+    label "Congresos"
+  ]
+  node [
+    id 17
+    label "Casa-Museo Blasco Iba&#241;ez"
+  ]
+  node [
     id 18
-    label "Ba&#241;os del Almirante"
+    label "Antiguo Convento de Santo Domingo"
   ]
   node [
     id 19
-    label "Parque de Cabecera"
+    label "Arabe"
   ]
   node [
     id 20
-    label "Iglesia de San Mart&#237;n"
+    label "Iglesia de la Compa&#241;a"
   ]
   node [
     id 21
@@ -90,247 +90,247 @@ graph [
   ]
   node [
     id 22
-    label "Centro del Carmen-IVAM"
+    label "Fundaci&#243;n Bancaja"
   ]
   node [
     id 23
-    label "&#211;pera"
-  ]
-  node [
-    id 24
-    label "Antiguo Convento de Santo Domingo"
-  ]
-  node [
-    id 25
     label "Biblioteca"
   ]
   node [
-    id 26
-    label "Futbol"
-  ]
-  node [
-    id 27
-    label "Iglesia y Palacio del Temple"
-  ]
-  node [
-    id 28
+    id 24
     label "Museo de la Catedral"
   ]
   node [
-    id 29
-    label "Ciencias naturales"
+    id 25
+    label "Museo Valenciano de Historia Natural"
   ]
   node [
-    id 30
-    label "Neocl&#225;sico"
-  ]
-  node [
-    id 31
-    label "LUmbracle"
-  ]
-  node [
-    id 32
-    label "Museo del Patriarca"
-  ]
-  node [
-    id 33
-    label "Puerto"
-  ]
-  node [
-    id 34
-    label "Arabe"
-  ]
-  node [
-    id 35
-    label "Palacio de las Artes Reina Sof&#237;a"
-  ]
-  node [
-    id 36
-    label "Espacios Abiertos"
-  ]
-  node [
-    id 37
-    label "Ferias"
-  ]
-  node [
-    id 38
-    label "Museo Hist&#243;rico Municipal"
-  ]
-  node [
-    id 39
-    label "Casa Ferrer"
-  ]
-  node [
-    id 40
-    label "Palacio de Justicia"
-  ]
-  node [
-    id 41
-    label "Eventos deportivos"
-  ]
-  node [
-    id 42
-    label "Jard&#237;n de Monforte"
-  ]
-  node [
-    id 43
-    label "Puente de la Exposici&#243;n (la Peineta)"
-  ]
-  node [
-    id 44
-    label "Palacio del Marqu&#233;s del Campo"
-  ]
-  node [
-    id 45
-    label "Playas"
-  ]
-  node [
-    id 46
-    label "Congresos"
-  ]
-  node [
-    id 47
-    label "El Oceanogr&#225;fico"
-  ]
-  node [
-    id 48
-    label "Estaci&#243;n del Norte"
-  ]
-  node [
-    id 49
-    label "Casa-Museo Concha Piquer"
-  ]
-  node [
-    id 50
-    label "Jard&#237;n Bot&#225;nico"
-  ]
-  node [
-    id 51
-    label "Museo de prehistoria y de las culturas de Valencia"
-  ]
-  node [
-    id 52
-    label "Estadio de Mestalla"
-  ]
-  node [
-    id 53
-    label "Otros espacios abiertos"
-  ]
-  node [
-    id 54
-    label "Centro cultural Fundaci&#243;n Bancaja"
-  ]
-  node [
-    id 55
-    label "Romano"
-  ]
-  node [
-    id 56
-    label "Museo valenciano de la ilustraci&#243;n y la modernidad"
-  ]
-  node [
-    id 57
-    label "Otros edificios emblem&#225;ticos"
-  ]
-  node [
-    id 58
-    label "Ateneo Mercantil"
-  ]
-  node [
-    id 59
-    label "Casa Museo Benlliure"
-  ]
-  node [
-    id 60
-    label "Museo del Arroz"
-  ]
-  node [
-    id 61
-    label "Complejo Deportivo Cultural Petxina"
-  ]
-  node [
-    id 62
-    label "Reales Atarazanas"
-  ]
-  node [
-    id 63
-    label "Tiendas especializadas"
-  ]
-  node [
-    id 64
-    label "Artesan&#237;a"
-  ]
-  node [
-    id 65
-    label "Archivo Hist&#243;rico Municipal (Palacio de Cervello)"
-  ]
-  node [
-    id 66
-    label "Cines"
-  ]
-  node [
-    id 67
-    label "Jardines del Turia"
-  ]
-  node [
-    id 68
-    label "Iglesia de San Esteban"
-  ]
-  node [
-    id 69
+    id 26
     label "Palacio de Congresos"
   ]
   node [
-    id 70
-    label "Museo de Ciencias Naturales"
+    id 27
+    label "Casa-Museo Benlliure"
   ]
   node [
-    id 71
+    id 28
+    label "Ciencia y tecnolog&#237;a"
+  ]
+  node [
+    id 29
+    label "Edificio Rialto"
+  ]
+  node [
+    id 30
+    label "Estadio de Mestalla"
+  ]
+  node [
+    id 31
+    label "Conciertos y m&#250;sica en vivo"
+  ]
+  node [
+    id 32
+    label "Complejo Deportivo Cultural Petxina"
+  ]
+  node [
+    id 33
+    label "Clubs y discotecas"
+  ]
+  node [
+    id 34
+    label "Iglesia del Salvador"
+  ]
+  node [
+    id 35
+    label "Espacios Abiertos"
+  ]
+  node [
+    id 36
+    label "Galer&#237;a del Tossal"
+  ]
+  node [
+    id 37
+    label "Centro del Carmen-IVAM"
+  ]
+  node [
+    id 38
+    label "Plaza de Toros"
+  ]
+  node [
+    id 39
+    label "Ateneo Mercantil"
+  ]
+  node [
+    id 40
+    label "Exposiciones"
+  ]
+  node [
+    id 41
+    label "Centro Julio Gonzalez-IVAM"
+  ]
+  node [
+    id 42
     label "Museo Fallero"
   ]
   node [
-    id 72
-    label "M&#250;sica clasica"
+    id 43
+    label "Museo de Ciencias Naturales"
   ]
   node [
-    id 73
-    label "Puentes"
+    id 44
+    label "Neocl&#225;sico"
   ]
   node [
-    id 74
+    id 45
+    label "Eventos deportivos"
+  ]
+  node [
+    id 46
+    label "Modernista"
+  ]
+  node [
+    id 47
+    label "Casa-Museo Concha Piquer"
+  ]
+  node [
+    id 48
+    label "Jardines de Viveros"
+  ]
+  node [
+    id 49
+    label "LUmbracle"
+  ]
+  node [
+    id 50
+    label "Paseos"
+  ]
+  node [
+    id 51
+    label "Iglesia de San Mart&#237;n"
+  ]
+  node [
+    id 52
     label "Museo de Cer&#225;mica (Palacio Marqu&#233;s de Dos Aguas)"
   ]
   node [
+    id 53
+    label "Arte"
+  ]
+  node [
+    id 54
+    label "Jard&#237;n Bot&#225;nico"
+  ]
+  node [
+    id 55
+    label "Casa Ortega"
+  ]
+  node [
+    id 56
+    label "Estaci&#243;n del Norte"
+  ]
+  node [
+    id 57
+    label "LHemisferic"
+  ]
+  node [
+    id 58
+    label "Edificio calle Ramilletes 1"
+  ]
+  node [
+    id 59
+    label "Artesan&#237;a"
+  ]
+  node [
+    id 60
+    label "Iglesia y Palacio del Temple"
+  ]
+  node [
+    id 61
+    label "Cines"
+  ]
+  node [
+    id 62
+    label "Museo del Arroz"
+  ]
+  node [
+    id 63
+    label "Museo del Trenet"
+  ]
+  node [
+    id 64
+    label "Museo del Artista Fallero"
+  ]
+  node [
+    id 65
+    label "Romano"
+  ]
+  node [
+    id 66
+    label "Ba&#241;os del Almirante"
+  ]
+  node [
+    id 67
+    label "Casa Museo Benlliure"
+  ]
+  node [
+    id 68
+    label "Museo de prehistoria y de las culturas de Valencia"
+  ]
+  node [
+    id 69
+    label "Historia"
+  ]
+  node [
+    id 70
+    label "Ferias"
+  ]
+  node [
+    id 71
+    label "Jard&#237;n de Monforte"
+  ]
+  node [
+    id 72
+    label "El Oceanogr&#225;fico"
+  ]
+  node [
+    id 73
+    label "Mercado de Col&#243;n"
+  ]
+  node [
+    id 74
+    label "Puente de la Exposici&#243;n (la Peineta)"
+  ]
+  node [
     id 75
-    label "Casa de las Rocas-Museo del Corpus"
+    label "&#211;pera"
   ]
   node [
     id 76
-    label "Teatro de Marionetas La Estrella"
+    label "Parque de Cabecera"
   ]
   node [
     id 77
-    label "Puente del Real"
+    label "Teatro Rialto"
   ]
   node [
     id 78
-    label "Ciudad de las Ciencias"
+    label "Colegio del Arte Mayor de la Seda"
   ]
   node [
     id 79
-    label "La Carcel de San Vicente (cripta arqueol&#243;gica de l"
+    label "Museo de la Ciudad"
   ]
   node [
     id 80
-    label "Palau de la Musica"
+    label "Museo Taurino"
   ]
   node [
     id 81
-    label "Medieval"
+    label "Palau de la Musica"
   ]
   node [
     id 82
-    label "Playa de las Arenas"
+    label "Palacio de las Artes Reina Sof&#237;a"
   ]
   node [
     id 83
@@ -338,384 +338,344 @@ graph [
   ]
   node [
     id 84
-    label "Plaza de Toros"
+    label "Otros espacios abiertos"
   ]
   node [
     id 85
-    label "Museo del Artista Fallero"
+    label "Jardines bot&#225;nicos"
   ]
   node [
     id 86
-    label "Iglesia del Salvador"
-  ]
-  node [
-    id 87
-    label "Arte"
-  ]
-  node [
-    id 88
-    label "Museo Valenciano de Historia Natural"
-  ]
-  node [
-    id 89
-    label "Mercado de Col&#243;n"
-  ]
-  node [
-    id 90
-    label "Museo del Siglo XIX (Convento del Carmen)"
-  ]
-  node [
-    id 91
-    label "LHemisferic"
-  ]
-  node [
-    id 92
-    label "Galer&#237;a del Tossal"
-  ]
-  node [
-    id 93
-    label "Casa-Museo Blasco Iba&#241;ez"
-  ]
-  node [
-    id 94
-    label "Jardines de Viveros"
-  ]
-  node [
-    id 95
-    label "Cripta de la C&#225;rcel de San Vicente"
-  ]
-  node [
-    id 96
-    label "Modernista"
-  ]
-  node [
-    id 97
-    label "Historia"
-  ]
-  node [
-    id 98
-    label "Paseos"
-  ]
-  node [
-    id 99
-    label "Playa de la Malvarrosa"
-  ]
-  node [
-    id 100
-    label "Museo de las Ciencias Pr&#237;ncipe Felipe"
-  ]
-  node [
-    id 101
-    label "Colegio del Arte Mayor de la Seda"
-  ]
-  node [
-    id 102
-    label "Prehist&#243;rico"
-  ]
-  node [
-    id 103
-    label "El Almud&#237;n"
-  ]
-  node [
-    id 104
-    label "Paseo Mar&#237;timo"
-  ]
-  node [
-    id 105
-    label "Edificio calle Ramilletes 1"
-  ]
-  node [
-    id 106
-    label "Ni&#241;os"
-  ]
-  node [
-    id 107
-    label "Edificio Rialto"
-  ]
-  node [
-    id 108
-    label "Palacio Joan de Valeriola"
-  ]
-  node [
-    id 109
-    label "Teatro Principal"
-  ]
-  node [
-    id 110
-    label "Contempor&#225;neo"
-  ]
-  node [
-    id 111
-    label "Casa-Museo de la Semana Santa Marinera"
-  ]
-  node [
-    id 112
-    label "Otros deportes"
-  ]
-  node [
-    id 113
-    label "Casa del Drag&#243;n"
-  ]
-  node [
-    id 114
-    label "Conciertos y m&#250;sica en vivo"
-  ]
-  node [
-    id 115
-    label "Correos y Tel&#233;grafos"
-  ]
-  node [
-    id 116
-    label "Museo de historia de Valencia"
-  ]
-  node [
-    id 117
-    label "Iglesia de la Compa&#241;a"
-  ]
-  node [
-    id 118
-    label "Campo de Golf del Saler"
-  ]
-  node [
-    id 119
     label "Palacio del Intendente Pineda (sede de la UIMP)"
   ]
   node [
-    id 120
-    label "Feria Valencia"
+    id 87
+    label "Teatros"
   ]
   node [
-    id 121
+    id 88
+    label "Estadios y &#225;reas deportivas"
+  ]
+  node [
+    id 89
+    label "Tiendas especializadas"
+  ]
+  node [
+    id 90
+    label "Puente del Real"
+  ]
+  node [
+    id 91
+    label "La Carcel de San Vicente (cripta arqueol&#243;gica de l"
+  ]
+  node [
+    id 92
+    label "Museo del Siglo XIX (Convento del Carmen)"
+  ]
+  node [
+    id 93
+    label "Casa-Museo de la Semana Santa Marinera"
+  ]
+  node [
+    id 94
+    label "Casa Ferrer"
+  ]
+  node [
+    id 95
+    label "Contempor&#225;neo"
+  ]
+  node [
+    id 96
+    label "Otros edificios emblem&#225;ticos"
+  ]
+  node [
+    id 97
+    label "El Almud&#237;n"
+  ]
+  node [
+    id 98
     label "Casa de la America's Cup"
   ]
   node [
+    id 99
+    label "Palacio Joan de Valeriola"
+  ]
+  node [
+    id 100
+    label "Feria Valencia"
+  ]
+  node [
+    id 101
+    label "Playa de la Malvarrosa"
+  ]
+  node [
+    id 102
+    label "Jardines del Turia"
+  ]
+  node [
+    id 103
+    label "Museo del Patriarca"
+  ]
+  node [
+    id 104
+    label "Plaza de la Almoina"
+  ]
+  node [
+    id 105
+    label "Casa de las Rocas-Museo del Corpus"
+  ]
+  node [
+    id 106
+    label "Puerto"
+  ]
+  node [
+    id 107
+    label "Museo Hist&#243;rico Municipal"
+  ]
+  node [
+    id 108
+    label "Iglesia de San Esteban"
+  ]
+  node [
+    id 109
+    label "Campo de Golf del Saler"
+  ]
+  node [
+    id 110
+    label "Casa del Drag&#243;n"
+  ]
+  node [
+    id 111
+    label "Playas"
+  ]
+  node [
+    id 112
+    label "Centro cultural Fundaci&#243;n Bancaja"
+  ]
+  node [
+    id 113
+    label "Museo de historia de Valencia"
+  ]
+  node [
+    id 114
+    label "Ciencias naturales"
+  ]
+  node [
+    id 115
+    label "Jard&#237;n de las Hesp&#225;rides"
+  ]
+  node [
+    id 116
+    label "Paseo Mar&#237;timo"
+  ]
+  node [
+    id 117
+    label "Playa de las Arenas"
+  ]
+  node [
+    id 118
+    label "Puentes"
+  ]
+  node [
+    id 119
+    label "Ni&#241;os"
+  ]
+  node [
+    id 120
+    label "Museo de las Ciencias Pr&#237;ncipe Felipe"
+  ]
+  node [
+    id 121
+    label "Museo valenciano de la ilustraci&#243;n y la modernidad"
+  ]
+  node [
     id 122
-    label "Museo del Trenet"
+    label "Correos y Tel&#233;grafos"
   ]
   edge [
     source 0
-    target 33
-    weight 49.0
+    target 97
+    weight 72.0
+  ]
+  edge [
+    source 0
+    target 6
+    weight 72.0
+  ]
+  edge [
+    source 0
+    target 18
+    weight 70.0
+  ]
+  edge [
+    source 0
+    target 121
+    weight 57.0
   ]
   edge [
     source 1
     target 9
-    weight 75.0
+    weight 100.0
   ]
   edge [
     source 1
-    target 87
-    weight 78.0
+    target 53
+    weight 100.0
   ]
   edge [
     source 2
-    target 9
-    weight 64.0
+    target 35
+    weight 48.0
   ]
   edge [
     source 2
-    target 87
-    weight 65.0
+    target 95
+    weight 59.0
   ]
   edge [
     source 3
-    target 10
-    weight 100.0
-  ]
-  edge [
-    source 4
-    target 110
-    weight 64.0
+    target 109
+    weight 48.0
   ]
   edge [
     source 4
     target 87
-    weight 78.0
+    weight 67.0
   ]
   edge [
     source 5
-    target 52
-    weight 43.0
-  ]
-  edge [
-    source 5
-    target 67
-    weight 61.0
-  ]
-  edge [
-    source 5
-    target 61
-    weight 64.0
-  ]
-  edge [
-    source 6
-    target 58
-    weight 44.0
-  ]
-  edge [
-    source 6
-    target 119
-    weight 56.0
-  ]
-  edge [
-    source 6
-    target 62
+    target 40
     weight 66.0
   ]
   edge [
-    source 6
-    target 121
-    weight 53.0
-  ]
-  edge [
-    source 6
-    target 13
-    weight 100.0
-  ]
-  edge [
-    source 6
-    target 54
+    source 5
+    target 31
     weight 60.0
   ]
   edge [
     source 6
-    target 103
-    weight 67.0
+    target 35
+    weight 49.0
   ]
   edge [
-    source 7
-    target 11
-    weight 75.0
-  ]
-  edge [
-    source 8
-    target 122
-    weight 96.0
-  ]
-  edge [
-    source 8
-    target 100
-    weight 62.0
-  ]
-  edge [
-    source 9
-    target 92
+    source 6
+    target 8
     weight 56.0
   ]
   edge [
-    source 9
-    target 60
+    source 6
+    target 19
+    weight 71.0
+  ]
+  edge [
+    source 6
+    target 65
+    weight 70.0
+  ]
+  edge [
+    source 7
+    target 87
     weight 100.0
   ]
   edge [
     source 9
     target 79
-    weight 100.0
+    weight 64.0
   ]
   edge [
     source 9
-    target 95
-    weight 70.0
-  ]
-  edge [
-    source 9
-    target 111
-    weight 100.0
-  ]
-  edge [
-    source 9
-    target 93
-    weight 61.0
-  ]
-  edge [
-    source 9
-    target 59
-    weight 75.0
-  ]
-  edge [
-    source 9
-    target 85
-    weight 72.0
-  ]
-  edge [
-    source 9
-    target 12
-    weight 73.0
-  ]
-  edge [
-    source 9
-    target 44
-    weight 100.0
-  ]
-  edge [
-    source 9
-    target 116
-    weight 67.0
-  ]
-  edge [
-    source 9
-    target 49
-    weight 76.0
-  ]
-  edge [
-    source 9
-    target 101
-    weight 69.0
-  ]
-  edge [
-    source 9
-    target 71
-    weight 77.0
-  ]
-  edge [
-    source 9
-    target 38
+    target 107
     weight 81.0
   ]
   edge [
     source 9
-    target 75
+    target 27
+    weight 75.0
+  ]
+  edge [
+    source 9
+    target 63
+    weight 88.0
+  ]
+  edge [
+    source 9
+    target 36
+    weight 56.0
+  ]
+  edge [
+    source 9
+    target 12
+    weight 70.0
+  ]
+  edge [
+    source 9
+    target 113
     weight 67.0
   ]
   edge [
     source 9
-    target 122
-    weight 88.0
-  ]
-  edge [
-    source 10
-    target 76
+    target 62
     weight 100.0
   ]
   edge [
-    source 10
-    target 17
-    weight 100.0
+    source 9
+    target 42
+    weight 77.0
   ]
   edge [
-    source 10
-    target 35
-    weight 75.0
+    source 9
+    target 80
+    weight 73.0
   ]
   edge [
-    source 10
-    target 109
-    weight 67.0
-  ]
-  edge [
-    source 11
-    target 31
+    source 9
+    target 64
     weight 72.0
   ]
   edge [
-    source 11
-    target 50
+    source 9
+    target 78
     weight 69.0
   ]
   edge [
-    source 12
-    target 110
-    weight 73.0
+    source 9
+    target 67
+    weight 75.0
+  ]
+  edge [
+    source 9
+    target 91
+    weight 100.0
+  ]
+  edge [
+    source 9
+    target 17
+    weight 61.0
+  ]
+  edge [
+    source 9
+    target 47
+    weight 76.0
+  ]
+  edge [
+    source 9
+    target 105
+    weight 67.0
+  ]
+  edge [
+    source 9
+    target 93
+    weight 100.0
+  ]
+  edge [
+    source 10
+    target 44
+    weight 47.0
+  ]
+  edge [
+    source 11
+    target 81
+    weight 51.0
   ]
   edge [
     source 13
@@ -724,522 +684,562 @@ graph [
   ]
   edge [
     source 14
-    target 96
-    weight 93.0
+    target 30
+    weight 29.0
   ]
   edge [
     source 15
-    target 81
-    weight 72.0
-  ]
-  edge [
-    source 15
-    target 55
-    weight 70.0
-  ]
-  edge [
-    source 15
-    target 102
-    weight 56.0
-  ]
-  edge [
-    source 15
-    target 36
-    weight 49.0
-  ]
-  edge [
-    source 15
-    target 34
-    weight 71.0
+    target 69
+    weight 83.0
   ]
   edge [
     source 16
-    target 34
-    weight 64.0
+    target 26
+    weight 44.0
   ]
   edge [
-    source 18
-    target 34
+    source 16
+    target 100
+    weight 40.0
+  ]
+  edge [
+    source 19
+    target 66
     weight 69.0
   ]
   edge [
     source 19
-    target 36
-    weight 54.0
+    target 97
+    weight 72.0
+  ]
+  edge [
+    source 19
+    target 108
+    weight 67.0
+  ]
+  edge [
+    source 19
+    target 104
+    weight 64.0
   ]
   edge [
     source 20
-    target 30
-    weight 50.0
+    target 53
+    weight 81.0
   ]
   edge [
     source 21
-    target 96
+    target 46
     weight 62.0
   ]
   edge [
     source 22
-    target 110
-    weight 61.0
+    target 53
+    weight 100.0
   ]
   edge [
     source 22
-    target 87
-    weight 74.0
+    target 40
+    weight 100.0
   ]
   edge [
     source 23
-    target 35
-    weight 65.0
-  ]
-  edge [
-    source 24
-    target 81
-    weight 70.0
-  ]
-  edge [
-    source 25
-    target 97
+    target 69
     weight 68.0
   ]
   edge [
+    source 24
+    target 53
+    weight 57.0
+  ]
+  edge [
+    source 25
+    target 114
+    weight 73.0
+  ]
+  edge [
     source 26
-    target 52
-    weight 29.0
+    target 95
+    weight 51.0
+  ]
+  edge [
+    source 26
+    target 96
+    weight 59.0
   ]
   edge [
     source 27
-    target 30
-    weight 64.0
+    target 53
+    weight 78.0
   ]
   edge [
     source 28
-    target 87
-    weight 57.0
+    target 63
+    weight 96.0
+  ]
+  edge [
+    source 28
+    target 120
+    weight 62.0
   ]
   edge [
     source 29
-    target 70
-    weight 69.0
+    target 61
+    weight 55.0
   ]
   edge [
-    source 29
+    source 30
     target 88
-    weight 73.0
+    weight 43.0
   ]
   edge [
-    source 29
-    target 47
-    weight 54.0
+    source 30
+    target 95
+    weight 41.0
   ]
   edge [
-    source 29
-    target 100
+    source 31
+    target 38
+    weight 51.0
+  ]
+  edge [
+    source 31
+    target 81
     weight 58.0
   ]
   edge [
-    source 30
-    target 42
-    weight 57.0
-  ]
-  edge [
-    source 30
-    target 86
-    weight 55.0
-  ]
-  edge [
-    source 30
-    target 115
-    weight 55.0
-  ]
-  edge [
-    source 30
-    target 40
-    weight 47.0
-  ]
-  edge [
-    source 31
-    target 98
-    weight 73.0
-  ]
-  edge [
-    source 31
-    target 110
-    weight 61.0
-  ]
-  edge [
     source 32
-    target 87
-    weight 72.0
+    target 88
+    weight 64.0
   ]
   edge [
     source 33
-    target 53
-    weight 60.0
-  ]
-  edge [
-    source 33
-    target 41
-    weight 46.0
+    target 106
+    weight 49.0
   ]
   edge [
     source 34
+    target 44
+    weight 55.0
+  ]
+  edge [
+    source 35
+    target 76
+    weight 54.0
+  ]
+  edge [
+    source 35
+    target 71
+    weight 48.0
+  ]
+  edge [
+    source 35
+    target 72
+    weight 42.0
+  ]
+  edge [
+    source 37
+    target 95
+    weight 61.0
+  ]
+  edge [
+    source 37
+    target 53
+    weight 74.0
+  ]
+  edge [
+    source 39
+    target 40
+    weight 44.0
+  ]
+  edge [
+    source 40
+    target 97
+    weight 67.0
+  ]
+  edge [
+    source 40
+    target 98
+    weight 53.0
+  ]
+  edge [
+    source 40
+    target 86
+    weight 56.0
+  ]
+  edge [
+    source 40
+    target 112
+    weight 60.0
+  ]
+  edge [
+    source 41
+    target 95
+    weight 64.0
+  ]
+  edge [
+    source 41
+    target 53
+    weight 78.0
+  ]
+  edge [
+    source 42
+    target 95
+    weight 71.0
+  ]
+  edge [
+    source 42
+    target 59
+    weight 67.0
+  ]
+  edge [
+    source 43
+    target 114
+    weight 69.0
+  ]
+  edge [
+    source 44
+    target 51
+    weight 50.0
+  ]
+  edge [
+    source 44
+    target 71
+    weight 57.0
+  ]
+  edge [
+    source 44
+    target 122
+    weight 55.0
+  ]
+  edge [
+    source 44
+    target 60
+    weight 64.0
+  ]
+  edge [
+    source 45
+    target 106
+    weight 46.0
+  ]
+  edge [
+    source 46
+    target 110
+    weight 56.0
+  ]
+  edge [
+    source 46
+    target 58
+    weight 36.0
+  ]
+  edge [
+    source 46
+    target 94
+    weight 76.0
+  ]
+  edge [
+    source 46
+    target 55
+    weight 93.0
+  ]
+  edge [
+    source 46
+    target 56
+    weight 61.0
+  ]
+  edge [
+    source 46
+    target 73
+    weight 61.0
+  ]
+  edge [
+    source 46
+    target 121
+    weight 55.0
+  ]
+  edge [
+    source 48
+    target 50
+    weight 72.0
+  ]
+  edge [
+    source 49
+    target 50
+    weight 73.0
+  ]
+  edge [
+    source 49
+    target 95
+    weight 61.0
+  ]
+  edge [
+    source 49
+    target 85
+    weight 72.0
+  ]
+  edge [
+    source 50
+    target 102
+    weight 72.0
+  ]
+  edge [
+    source 50
+    target 116
+    weight 65.0
+  ]
+  edge [
+    source 52
+    target 53
+    weight 72.0
+  ]
+  edge [
+    source 52
+    target 59
+    weight 65.0
+  ]
+  edge [
+    source 53
+    target 99
+    weight 100.0
+  ]
+  edge [
+    source 53
     target 103
     weight 72.0
   ]
   edge [
-    source 34
-    target 68
-    weight 67.0
-  ]
-  edge [
-    source 35
-    target 110
-    weight 63.0
-  ]
-  edge [
-    source 35
-    target 57
-    weight 65.0
-  ]
-  edge [
-    source 36
-    target 42
-    weight 48.0
-  ]
-  edge [
-    source 36
-    target 47
-    weight 42.0
-  ]
-  edge [
-    source 36
-    target 78
-    weight 48.0
-  ]
-  edge [
-    source 37
-    target 120
-    weight 42.0
-  ]
-  edge [
-    source 39
-    target 96
-    weight 76.0
-  ]
-  edge [
-    source 43
-    target 110
-    weight 54.0
-  ]
-  edge [
-    source 43
-    target 73
-    weight 59.0
-  ]
-  edge [
-    source 44
-    target 87
-    weight 100.0
-  ]
-  edge [
-    source 45
-    target 82
-    weight 64.0
-  ]
-  edge [
-    source 45
-    target 99
-    weight 66.0
-  ]
-  edge [
-    source 45
-    target 121
-    weight 59.0
-  ]
-  edge [
-    source 45
-    target 104
-    weight 65.0
-  ]
-  edge [
-    source 46
-    target 120
-    weight 40.0
-  ]
-  edge [
-    source 46
-    target 69
-    weight 44.0
-  ]
-  edge [
-    source 47
-    target 110
-    weight 53.0
-  ]
-  edge [
-    source 47
-    target 106
-    weight 42.0
-  ]
-  edge [
-    source 48
-    target 96
-    weight 61.0
-  ]
-  edge [
-    source 51
-    target 97
-    weight 74.0
-  ]
-  edge [
-    source 52
-    target 110
-    weight 41.0
-  ]
-  edge [
     source 53
-    target 118
-    weight 60.0
-  ]
-  edge [
-    source 54
-    target 87
-    weight 66.0
-  ]
-  edge [
-    source 56
-    target 81
-    weight 57.0
-  ]
-  edge [
-    source 56
-    target 110
-    weight 52.0
-  ]
-  edge [
-    source 56
-    target 96
-    weight 55.0
-  ]
-  edge [
-    source 56
-    target 97
-    weight 60.0
-  ]
-  edge [
-    source 57
-    target 120
-    weight 56.0
-  ]
-  edge [
-    source 57
-    target 69
-    weight 59.0
-  ]
-  edge [
-    source 59
-    target 87
+    target 67
     weight 78.0
   ]
   edge [
-    source 62
-    target 114
+    source 53
+    target 92
+    weight 79.0
+  ]
+  edge [
+    source 53
+    target 112
+    weight 66.0
+  ]
+  edge [
+    source 53
+    target 79
+    weight 65.0
+  ]
+  edge [
+    source 53
+    target 83
+    weight 72.0
+  ]
+  edge [
+    source 54
+    target 85
+    weight 69.0
+  ]
+  edge [
+    source 57
+    target 95
+    weight 59.0
+  ]
+  edge [
+    source 57
+    target 61
+    weight 66.0
+  ]
+  edge [
+    source 59
+    target 64
+    weight 55.0
+  ]
+  edge [
+    source 59
+    target 78
+    weight 64.0
+  ]
+  edge [
+    source 63
+    target 95
+    weight 67.0
+  ]
+  edge [
+    source 64
+    target 119
+    weight 48.0
+  ]
+  edge [
+    source 64
+    target 95
+    weight 69.0
+  ]
+  edge [
+    source 68
+    target 69
+    weight 74.0
+  ]
+  edge [
+    source 69
+    target 113
+    weight 70.0
+  ]
+  edge [
+    source 69
+    target 83
+    weight 69.0
+  ]
+  edge [
+    source 69
+    target 121
     weight 60.0
   ]
   edge [
-    source 63
-    target 121
-    weight 47.0
+    source 70
+    target 100
+    weight 42.0
   ]
   edge [
-    source 63
+    source 72
+    target 114
+    weight 54.0
+  ]
+  edge [
+    source 72
+    target 95
+    weight 53.0
+  ]
+  edge [
+    source 72
+    target 119
+    weight 42.0
+  ]
+  edge [
+    source 73
     target 89
     weight 54.0
   ]
   edge [
-    source 64
-    target 101
-    weight 64.0
-  ]
-  edge [
-    source 64
-    target 71
-    weight 67.0
-  ]
-  edge [
-    source 64
-    target 85
-    weight 55.0
-  ]
-  edge [
-    source 64
-    target 74
-    weight 65.0
-  ]
-  edge [
-    source 65
-    target 97
-    weight 83.0
-  ]
-  edge [
-    source 66
-    target 91
-    weight 66.0
-  ]
-  edge [
-    source 66
-    target 107
-    weight 55.0
-  ]
-  edge [
-    source 67
-    target 98
-    weight 72.0
-  ]
-  edge [
-    source 69
-    target 110
-    weight 51.0
-  ]
-  edge [
-    source 71
-    target 110
-    weight 71.0
-  ]
-  edge [
-    source 72
-    target 80
-    weight 51.0
-  ]
-  edge [
-    source 73
-    target 77
-    weight 67.0
+    source 74
+    target 118
+    weight 59.0
   ]
   edge [
     source 74
-    target 87
-    weight 72.0
+    target 95
+    weight 54.0
   ]
   edge [
-    source 78
-    target 110
-    weight 59.0
-  ]
-  edge [
-    source 80
-    target 114
-    weight 58.0
-  ]
-  edge [
-    source 80
-    target 110
-    weight 58.0
-  ]
-  edge [
-    source 81
-    target 103
-    weight 72.0
-  ]
-  edge [
-    source 83
-    target 87
-    weight 72.0
-  ]
-  edge [
-    source 83
-    target 97
-    weight 69.0
-  ]
-  edge [
-    source 84
-    target 114
-    weight 51.0
-  ]
-  edge [
-    source 85
-    target 110
-    weight 69.0
-  ]
-  edge [
-    source 85
-    target 106
-    weight 48.0
-  ]
-  edge [
-    source 87
-    target 117
-    weight 81.0
-  ]
-  edge [
-    source 87
-    target 90
-    weight 79.0
-  ]
-  edge [
-    source 87
-    target 108
-    weight 100.0
-  ]
-  edge [
-    source 89
-    target 96
-    weight 61.0
-  ]
-  edge [
-    source 91
-    target 110
-    weight 59.0
-  ]
-  edge [
-    source 94
-    target 98
-    weight 72.0
-  ]
-  edge [
-    source 96
-    target 105
-    weight 36.0
-  ]
-  edge [
-    source 96
-    target 113
-    weight 56.0
-  ]
-  edge [
-    source 97
-    target 116
-    weight 70.0
-  ]
-  edge [
-    source 98
-    target 104
+    source 75
+    target 82
     weight 65.0
   ]
   edge [
-    source 100
-    target 110
-    weight 53.0
+    source 77
+    target 87
+    weight 100.0
   ]
   edge [
-    source 110
-    target 121
+    source 80
+    target 95
+    weight 73.0
+  ]
+  edge [
+    source 81
+    target 95
+    weight 58.0
+  ]
+  edge [
+    source 82
+    target 87
+    weight 75.0
+  ]
+  edge [
+    source 82
+    target 95
+    weight 63.0
+  ]
+  edge [
+    source 82
+    target 96
+    weight 65.0
+  ]
+  edge [
+    source 84
+    target 106
+    weight 60.0
+  ]
+  edge [
+    source 84
+    target 109
+    weight 60.0
+  ]
+  edge [
+    source 85
+    target 115
+    weight 75.0
+  ]
+  edge [
+    source 88
+    target 102
+    weight 61.0
+  ]
+  edge [
+    source 89
+    target 98
     weight 47.0
   ]
   edge [
-    source 110
-    target 122
+    source 90
+    target 118
     weight 67.0
   ]
   edge [
-    source 110
-    target 120
+    source 95
+    target 98
+    weight 47.0
+  ]
+  edge [
+    source 95
+    target 100
     weight 50.0
   ]
   edge [
-    source 112
-    target 118
-    weight 48.0
+    source 95
+    target 121
+    weight 52.0
+  ]
+  edge [
+    source 95
+    target 120
+    weight 53.0
+  ]
+  edge [
+    source 96
+    target 100
+    weight 56.0
+  ]
+  edge [
+    source 98
+    target 111
+    weight 59.0
+  ]
+  edge [
+    source 101
+    target 111
+    weight 66.0
+  ]
+  edge [
+    source 111
+    target 117
+    weight 64.0
+  ]
+  edge [
+    source 111
+    target 116
+    weight 65.0
+  ]
+  edge [
+    source 114
+    target 120
+    weight 58.0
   ]
 ]

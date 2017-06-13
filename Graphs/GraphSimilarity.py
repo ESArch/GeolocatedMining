@@ -217,22 +217,22 @@ def FaBP_similarity(g1, g2):
 # print(FaBP_similarity(g1,g2))
 
 
-K5 = nx.complete_graph(5)
-eK5 = nx.complete_graph(5)
-eK5.remove_edge(4,3)
-
-
-C5 = nx.cycle_graph(5)
-eC5 = nx.cycle_graph(5)
-eC5.remove_edge(1,2)
-
-P5 = nx.path_graph(5)
-eP5 = nx.path_graph(5)
-eP5.remove_edge(2,3)
-# #
-print(FaBP_similarity(K5, eK5))
-print(FaBP_similarity(P5, eP5))
-print(FaBP_similarity(C5, eC5))
+# K5 = nx.complete_graph(5)
+# eK5 = nx.complete_graph(5)
+# eK5.remove_edge(4,3)
+#
+#
+# C5 = nx.cycle_graph(5)
+# eC5 = nx.cycle_graph(5)
+# eC5.remove_edge(1,2)
+#
+# P5 = nx.path_graph(5)
+# eP5 = nx.path_graph(5)
+# eP5.remove_edge(2,3)
+# # #
+# print(FaBP_similarity(K5, eK5))
+# print(FaBP_similarity(P5, eP5))
+# print(FaBP_similarity(C5, eC5))
 
 # nx.draw(nx.compose(K5, eK5))
 # plt.show()

@@ -97,12 +97,12 @@ def buildItemsets(min_rating):
         user_ratings[user_id] = ratings
         user_movies[user_id] = movies
 
-    with open('itemsets.txt', 'w') as f:
+    with open('data/encoded_itemsets.txt', 'w') as f:
         for key in user_ratings.keys():
             f.write(" ".join(list(map(str, sorted(user_ratings[key])))))
             f.write("\n")
 
-    with open('decoded_itemsets.txt', 'w') as f:
+    with open('data/decoded_itemsets.txt', 'w') as f:
         for key in user_movies.keys():
             f.write(" ".join(list(map(str, user_movies[key]))))
             f.write("\n")
@@ -112,7 +112,7 @@ def buildItemsets(min_rating):
 
 def run_spmf():
 
-    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "itemsets.txt", "output.txt", "10%"]
+    args = ["java", "-jar", "../tools/spmf.jar", "run", "Eclat", "data/enconded_itemsets.txt", "data/spmf_output.txt", "10%"]
     call(args)
 
 def build_movie_dict():
@@ -174,7 +174,7 @@ def build_gtag_score_table(min_relevance):
     return s
 
 def decode(movie_map):
-    with open("output.txt", "r") as f, open("decoded.txt", 'w') as g:
+    with open("data/spmf_output.txt", "r") as f, open("data/decoded_patterns.txt", 'w') as g:
         for line in f:
             pattern = line.split(" #SUP: ")[0].split(" ")
             for i in range(len(pattern)):
@@ -397,7 +397,7 @@ def build_graph_fast(node, node_type, nodes, edges, distance):
 
 def print_labels():
     count = 0
-    with open("decoded.txt", "r") as f, open("labels.txt", "w") as g:
+    with open("data/decoded_patterns.txt", "r") as f, open("labels.txt", "w") as g:
         for line in f:
             pattern = line.strip().split(" ")
             pattern_labels = [movies[int(x)] for x in pattern]

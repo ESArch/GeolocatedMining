@@ -220,7 +220,7 @@ preferences = build_preference_dict()
 place_preferences = build_place_preferences_table()
 
 
-# build_graphs(4, "decoded_patterns.txt", "graphs")
+build_graphs(4, "decoded_patterns.txt", "graphs")
 build_graphs(4, "places.txt", "place_graphs")
 
 
